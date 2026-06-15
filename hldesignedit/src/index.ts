@@ -1,10 +1,20 @@
 import { fromHono } from "chanfana";
 import { Hono } from "hono";
 import { FormsSubmit } from "./endpoints/formsSubmit";
+import {
+  sasAccessStatus,
+  sasAccessVerify,
+  sasAnalyze,
+  sasOptions,
+  sasReportGet,
+  sasReportSave,
+  sasReportsList,
+} from "./endpoints/sasRoutes";
 import { TaskCreate } from "./endpoints/taskCreate";
 import { TaskDelete } from "./endpoints/taskDelete";
 import { TaskFetch } from "./endpoints/taskFetch";
 import { TaskList } from "./endpoints/taskList";
+import { SasStore } from "./sas/storage";
 
 // Start a Hono app
 const app = new Hono<{ Bindings: Env }>();
@@ -31,9 +41,17 @@ openapi.delete("/api/tasks/:taskSlug", TaskDelete);
 
 app.options("/api/forms", FormsSubmit);
 app.post("/api/forms", FormsSubmit);
+app.options("/api/sas/*", sasOptions);
+app.get("/api/sas/access/status", sasAccessStatus);
+app.post("/api/sas/access/verify", sasAccessVerify);
+app.post("/api/sas/analyze", sasAnalyze);
+app.get("/api/sas/reports", sasReportsList);
+app.get("/api/sas/reports/:id", sasReportGet);
+app.post("/api/sas/reports", sasReportSave);
 
 // You may also register routes for non OpenAPI directly on Hono
 // app.get('/test', (c) => c.text('Hono!'))
 
 // Export the Hono app
 export default app;
+export { SasStore };

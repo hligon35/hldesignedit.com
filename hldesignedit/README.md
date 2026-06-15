@@ -66,3 +66,29 @@ In Cloudflare Dashboard:
 Then deploy:
 
 - `wrangler deploy`
+
+## SAS integration
+
+This Worker now also supports the SAS conversion path through `api/sas/*` routes, backed by a Durable Object for persistent report storage.
+
+### SAS secrets
+
+Set the required secrets with Wrangler instead of storing them in source:
+
+- `wrangler secret put OPENAI_API_KEY`
+- `wrangler secret put TURNSTILE_SECRET_KEY`
+
+Set the public Turnstile site key in `wrangler.jsonc` under `vars.TURNSTILE_SITE_KEY`.
+
+### SAS routes
+
+- `GET /api/sas/access/status`
+- `POST /api/sas/access/verify`
+- `POST /api/sas/analyze`
+- `GET /api/sas/reports`
+- `GET /api/sas/reports/:id`
+- `POST /api/sas/reports`
+
+### SAS storage
+
+SAS report persistence uses the `SasStore` Durable Object configured in `wrangler.jsonc` migrations.
