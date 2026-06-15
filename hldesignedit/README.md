@@ -71,6 +71,8 @@ Then deploy:
 
 This Worker now also supports the SAS conversion path through `api/sas/*` routes, backed by a Durable Object for persistent report storage.
 
+The dedicated SAS deployment target is the `sas` Wrangler environment. Deploying that environment builds the frontend from `../sas`, serves the built assets as a SPA, and attaches the Worker to `sas.hldesignedit.com`.
+
 ### SAS secrets
 
 Set the required secrets with Wrangler instead of storing them in source:
@@ -78,7 +80,22 @@ Set the required secrets with Wrangler instead of storing them in source:
 - `wrangler secret put OPENAI_API_KEY`
 - `wrangler secret put TURNSTILE_SECRET_KEY`
 
+For the dedicated SAS deployment, set them on the `sas` environment:
+
+- `wrangler secret put OPENAI_API_KEY --env sas`
+- `wrangler secret put TURNSTILE_SECRET_KEY --env sas`
+
+This Wrangler version does not validate required secrets from `wrangler.jsonc`, so the commands above are the source of truth for the SAS environment.
+
 Set the public Turnstile site key in `wrangler.jsonc` under `vars.TURNSTILE_SITE_KEY`.
+
+### SAS deployment
+
+From `hldesignedit/`:
+
+- `npm run deploy:sas`
+
+That deployment uses the `env.sas` configuration in `wrangler.jsonc`, builds the frontend in `../sas`, serves it with Workers Assets, and points the custom domain `sas.hldesignedit.com` at the SAS landing page.
 
 ### SAS routes
 

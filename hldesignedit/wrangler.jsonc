@@ -7,6 +7,7 @@
 	"name": "hldesignedit",
 	"main": "src/index.ts",
 	"compatibility_date": "2026-01-28",
+	"workers_dev": true,
 	"observability": {
 		"enabled": true
 	},
@@ -37,7 +38,41 @@
 			"name": "EMAIL",
 			"destination_address": "info@hldesignedit.com"
 		}
-	]
+	],
+	"env": {
+		"sas": {
+			"name": "hldesignedit-sas",
+			"workers_dev": false,
+			"routes": [
+				{
+					"pattern": "sas.hldesignedit.com",
+					"custom_domain": true
+				}
+			],
+			"build": {
+				"command": "npm --prefix ../sas clean-install --progress=false && npm --prefix ../sas run build",
+				"watch_dir": ["src", "../sas/src", "../sas/public", "../sas/index.html", "../sas/package.json", "../sas/vite.config.js"]
+			},
+			"assets": {
+				"directory": "../sas/dist",
+				"not_found_handling": "single-page-application",
+				"run_worker_first": ["/api/*"]
+			},
+			"durable_objects": {
+				"bindings": [
+					{
+						"name": "SAS_STORE",
+						"class_name": "SasStore"
+					}
+				]
+			},
+			"vars": {
+				"ALLOWED_ORIGINS": "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173,https://hligon35.github.io",
+				"SAS_ALLOWED_ORIGINS": "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173",
+				"TURNSTILE_SITE_KEY": ""
+			}
+		}
+	}
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

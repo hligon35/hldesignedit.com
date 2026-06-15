@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "deploy": "wrangler deploy",
+    "deploy:sas": "wrangler deploy --env sas",
+    "build:sas": "npm --prefix ../sas clean-install --progress=false && npm --prefix ../sas run build",
     "dev": "wrangler dev",
     "start": "wrangler dev",
     "cf-typegen": "wrangler types"

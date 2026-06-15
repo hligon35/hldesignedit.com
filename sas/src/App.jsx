@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import AccessGuard from './components/AccessGuard';
-import GatePage from './pages/GatePage';
 import AnalyzePage from './pages/AnalyzePage';
 import ReportsPage from './pages/ReportsPage';
 import ReportDetailPage from './pages/ReportDetailPage';
@@ -11,13 +10,11 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<GatePage />} />
+        <Route path="/" element={<AnalyzePage />} />
         <Route
           path="/analyze"
           element={(
-            <AccessGuard>
-              <AnalyzePage />
-            </AccessGuard>
+            <Navigate to="/" replace />
           )}
         />
         <Route
