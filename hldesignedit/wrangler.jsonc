@@ -11,20 +11,6 @@
 	"observability": {
 		"enabled": true
 	},
-	"durable_objects": {
-		"bindings": [
-			{
-				"name": "SAS_STORE",
-				"class_name": "SasStore"
-			}
-		]
-	},
-	"migrations": [
-		{
-			"tag": "v1",
-			"new_sqlite_classes": ["SasStore"]
-		}
-	],
 	"vars": {
 		"FORMS_TO_EMAIL": "info@hldesignedit.com",
 		"FORMS_DISPLAY_TO_EMAIL": "info@hldesignedit.com",
@@ -67,10 +53,16 @@
 				"bindings": [
 					{
 						"name": "SAS_STORE",
-						"class_name": "SasStore"
+						"class_name": "SasStoreCurrent"
 					}
 				]
 			},
+			"migrations": [
+				{
+					"tag": "v3",
+					"new_sqlite_classes": ["SasStoreCurrent"]
+				}
+			],
 			"vars": {
 				"FORMS_TO_EMAIL": "info@hldesignedit.com",
 				"FORMS_DISPLAY_TO_EMAIL": "info@hldesignedit.com",
@@ -79,7 +71,7 @@
 				"SAS_ALLOWED_ORIGINS": "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173"
 			}
 		}
-	}
+	},
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
