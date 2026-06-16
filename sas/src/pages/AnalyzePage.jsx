@@ -87,10 +87,25 @@ function AnalyzePage() {
       <PageIntro
         title="Enter a website and generate the full SAS report"
         description="Submit a live website URL, complete the Turnstile check once, and generate the client report, rebuild prompt, and consultant script from the landing page."
-        actions={<Link className="cta-btn secondary" to="/reports">Browse saved reports</Link>}
         panel={(
           <article className="service-card sas-detail-card sas-hero-card">
             <div className="sas-hero-card__stack">
+              <form className="sas-inline-form sas-inline-form--hero" onSubmit={handleAnalyze}>
+                <label className="sas-input-group">
+                  <span className="sas-label">Client website URL</span>
+                  <input
+                    type="url"
+                    className="form-input sas-input"
+                    value={url}
+                    onChange={(event) => setUrl(event.target.value)}
+                    required
+                  />
+                </label>
+                <button type="submit" className="cta-btn primary" disabled={status === 'loading'}>
+                  {status === 'loading' ? 'Analyzing...' : 'Analyze'}
+                </button>
+              </form>
+              {error ? <p className="sas-error-banner">{error}</p> : null}
               {!hasAccess ? (
                 <div className="sas-list-stack sas-access-stack">
                   <div className="sas-list-card sas-verification-card">
@@ -109,22 +124,6 @@ function AnalyzePage() {
                   </div>
                 </div>
               ) : null}
-              <form className="sas-inline-form sas-inline-form--hero" onSubmit={handleAnalyze}>
-                <label className="sas-input-group">
-                  <span className="sas-label">Client website URL</span>
-                  <input
-                    type="url"
-                    className="form-input sas-input"
-                    value={url}
-                    onChange={(event) => setUrl(event.target.value)}
-                    required
-                  />
-                </label>
-                <button type="submit" className="cta-btn primary" disabled={status === 'loading'}>
-                  {status === 'loading' ? 'Analyzing...' : 'Analyze'}
-                </button>
-              </form>
-              {error ? <p className="sas-error-banner">{error}</p> : null}
             </div>
           </article>
         )}

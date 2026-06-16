@@ -6,7 +6,7 @@
 }
 
 .sas-header {
-  padding: 0.8rem 0;
+  padding: 0.55rem 0;
 }
 
 .sas-nav-container {
@@ -62,20 +62,20 @@
 }
 
 .sas-page-shell {
-  padding-top: 7rem;
+  padding-top: 4.8rem;
 }
 
 .sas-hero-panel {
   min-height: auto;
-  padding-top: 8rem;
-  padding-bottom: 3rem;
+  padding-top: 0.5rem;
+  padding-bottom: 2.5rem;
   background: transparent;
 }
 
 .sas-page-intro-shell {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
-  gap: clamp(2rem, 4vw, 4rem);
+  gap: clamp(1.25rem, 3vw, 3rem);
   align-items: start;
 }
 
@@ -86,6 +86,7 @@
 
 .sas-page-intro h1 {
   max-width: 10ch;
+  margin-bottom: 1rem;
 }
 
 .sas-eyebrow {
@@ -158,6 +159,10 @@
 
 .sas-inline-form--hero {
   margin-top: var(--spacing-xs);
+}
+
+.sas-access-stack {
+  margin-top: 0;
 }
 
 .sas-input-group {
@@ -342,7 +347,24 @@
   }
 
   .sas-hero-panel {
-    padding-top: 7rem;
+    padding-top: 0.5rem;
+  }
+
+  .sas-page-intro {
+    text-align: left;
+  }
+
+  .sas-page-intro h1 {
+    max-width: none;
+    text-align: left;
+  }
+
+  .value-proposition {
+    text-align: left;
+  }
+
+  .sas-inline-form--hero .cta-btn {
+    width: 100%;
   }
 
   .sas-report-row {
@@ -353,30 +375,141 @@
 
 @media (max-width: 700px) {
   .sas-nav-container {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 0.55rem 0.9rem;
+    padding: 0 1rem;
+  }
+
+  .sas-brand {
     align-items: flex-start;
-    padding: 0 1.25rem;
+    gap: 0.65rem;
+    min-width: 0;
   }
 
+  .sas-brand-copy {
+    min-width: 0;
+  }
+
+  .sas-brand-label,
+  .sas-brand-subtext {
+    line-height: 1.2;
+  }
+
+    gap: 0.4rem;
+    width: min(7.5rem, 100%);
+    justify-items: stretch;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+    width: min(8rem, 100%);
+  }
+
+    min-height: 2.35rem;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid rgba(194, 65, 12, 0.18);
+    border-radius: 999px;
+    background: rgba(255, 253, 248, 0.96);
+    box-shadow: 0 8px 24px rgba(28, 25, 23, 0.08);
+    align-items: center;
+
+  .sas-nav-link::after {
+    display: none;
+  }
+
+  .sas-nav-link.is-active {
+    border-color: rgba(194, 65, 12, 0.45);
+    background: #fff7ed;
+  }
+    justify-content: center;
+    min-height: 2.55rem;
+    padding-top: 6rem;
+    border: 1px solid rgba(194, 65, 12, 0.16);
+    border-radius: 999px;
+    background: rgba(255, 253, 248, 0.96);
+  }
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: none;
+  }
+
+    font-size: 2.35rem;
+    line-height: 1.08;
+    text-align: left;
+    color: #9a3412;
+
+  .sas-page-intro {
+    text-align: left;
+  }
+
+  .value-proposition {
+    font-size: 1.02rem;
+    margin-bottom: 1.4rem;
+    text-align: left;
+  }
+    border-color: rgba(194, 65, 12, 0.28);
+    box-shadow: 0 8px 18px rgba(28, 25, 23, 0.08);
+    height: 3.7rem;
+
+
+  .sas-brand-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+  }
+
+  .sas-brand-subtext {
+    font-size: 0.9rem;
+  }
+
+  .sas-hero-card {
+    padding: 1rem;
+    border-radius: 1.15rem;
+  }
   .sas-page-shell {
-    padding-top: 9.5rem;
+    padding-top: 7.5rem;
   }
 
+
+  .sas-verification-card,
+  .sas-error-banner,
+  .sas-input {
+    font-size: 0.97rem;
+  }
   .sas-hero-panel,
   .services-section {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .sas-page-intro h1 {
     font-size: 2.8rem;
+    text-align: left;
+  }
+
+  .sas-page-intro .value-proposition {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .sas-brand-logo {
-    height: 4.2rem;
+    height: 3.75rem;
   }
 
   .sas-inline-form {
     gap: var(--spacing-md);
+  }
+
+  .sas-hero-card {
+    padding: 1.15rem;
+    border-radius: 1.2rem;
+  }
+
+  .sas-verification-card,
+  .sas-error-banner,
+  .sas-list-card,
+  .sas-insight-card {
+    padding: 1rem;
   }
 }
