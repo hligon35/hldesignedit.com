@@ -87,7 +87,9 @@ For the dedicated SAS deployment, set them on the `sas` environment:
 
 This Wrangler version does not validate required secrets from `wrangler.jsonc`, so the commands above are the source of truth for the SAS environment.
 
-Set the public Turnstile site key in `wrangler.jsonc` under `vars.TURNSTILE_SITE_KEY`.
+Set the Turnstile site key as a runtime binding for the `sas` environment so deploys do not commit or overwrite it from source. Use a distinct binding name to avoid collisions with prior plain-text vars:
+
+- `wrangler secret put TURNSTILE_SITE_PUBLIC_KEY --env sas`
 
 ### SAS deployment
 

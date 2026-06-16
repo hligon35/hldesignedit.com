@@ -2,7 +2,6 @@ import { z } from "zod";
 import type { AppContext } from "../types";
 import { analyzeWebsite } from "../sas/analysis";
 import { SasReportSchema, type SasReport } from "../sas/types";
-import { SasStore } from "../sas/storage";
 
 const AccessRequestSchema = z.object({
 	token: z.string().min(1),
@@ -72,7 +71,8 @@ export async function sasOptions(c: AppContext) {
 
 export async function sasAccessStatus(c: AppContext) {
 	const allowed = Boolean(await verifyAccess(c));
-	return c.json({ allowed, siteKey: c.env.TURNSTILE_SITE_KEY || "" }, 200, getCorsHeaderRecord(c));
+	const siteKey = c.env.TURNSTILE_SITE_PUBLIC_KEY || c.env.TURNSTILE_SITE_KEY || "";
+	return c.json({ allowed, siteKey }, 200, getCorsHeaderRecord(c));
 }
 
 export async function sasAccessVerify(c: AppContext) {

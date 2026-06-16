@@ -123,3 +123,5 @@ export class SasStore extends DurableObject<Env> {
 		return rows.toArray().map((row) => JSON.parse(row.payload) as SasReport);
 	}
 }
+
+export class SasStoreCurrent extends SasStore {}
