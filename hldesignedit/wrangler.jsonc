@@ -15,14 +15,14 @@
 		"bindings": [
 			{
 				"name": "SAS_STORE",
-				"class_name": "SasStore"
+				"class_name": "SasStoreCurrent"
 			}
 		]
 	},
 	"migrations": [
 		{
-			"tag": "v1",
-			"new_sqlite_classes": ["SasStore"]
+			"tag": "v3",
+			"new_sqlite_classes": ["SasStoreCurrent"]
 		}
 	],
 	"vars": {
@@ -31,7 +31,7 @@
 		"FORMS_FROM_EMAIL": "noreply@hldesignedit.com",
 		"ALLOWED_ORIGINS": "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173,https://hligon35.github.io",
 		"SAS_ALLOWED_ORIGINS": "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173",
-		"TURNSTILE_SITE_KEY": ""
+		"TURNSTILE_SITE_KEY": "0x4AAAAAADlW8pyVXvG6tndX"
 	},
 	"send_email": [
 		{
@@ -49,27 +49,32 @@
 					"custom_domain": true
 				}
 			],
-			"build": {
-				"command": "npm --prefix ../sas clean-install --progress=false && npm --prefix ../sas run build",
-				"watch_dir": ["src", "../sas/src", "../sas/public", "../sas/index.html", "../sas/package.json", "../sas/vite.config.js"]
-			},
 			"assets": {
 				"directory": "../sas/dist",
 				"not_found_handling": "single-page-application",
 				"run_worker_first": ["/api/*"]
 			},
+			"send_email": [
+				{
+					"name": "EMAIL",
+					"destination_address": "info@hldesignedit.com"
+				}
+			],
 			"durable_objects": {
 				"bindings": [
 					{
 						"name": "SAS_STORE",
-						"class_name": "SasStore"
+						"class_name": "SasStoreCurrent"
 					}
 				]
 			},
 			"vars": {
+				"FORMS_TO_EMAIL": "info@hldesignedit.com",
+				"FORMS_DISPLAY_TO_EMAIL": "info@hldesignedit.com",
+				"FORMS_FROM_EMAIL": "noreply@hldesignedit.com",
 				"ALLOWED_ORIGINS": "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173,https://hligon35.github.io",
 				"SAS_ALLOWED_ORIGINS": "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173",
-				"TURNSTILE_SITE_KEY": ""
+				"TURNSTILE_SITE_KEY": "0x4AAAAAADlW8pyVXvG6tndX"
 			}
 		}
 	}

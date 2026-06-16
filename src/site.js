@@ -1,18 +1,33 @@
 import hldiLogoUrl from '../hldiLogo.png?url';
 
+const pagePaths = {
+  home: './index.html',
+  services: './services.html',
+  portfolio: './portfolio.html',
+  about: './about.html',
+  contact: './contact.html',
+};
+
+const mediaPaths = {
+  hero: './hero image.png',
+  conversion: './web conv.png',
+  beforeAfter: './beforevsafteer.png',
+  breakdown: './web brkdwn.png',
+};
+
 const navigation = [
-  { key: 'home', label: 'Home', href: '/' },
-  { key: 'services', label: 'Services', href: '/services.html' },
-  { key: 'portfolio', label: 'Portfolio', href: '/portfolio.html' },
-  { key: 'about', label: 'About', href: '/about.html' },
-  { key: 'contact', label: 'Contact', href: '/contact.html' },
+  { key: 'home', label: 'Home', href: pagePaths.home },
+  { key: 'services', label: 'Services', href: pagePaths.services },
+  { key: 'portfolio', label: 'Portfolio', href: pagePaths.portfolio },
+  { key: 'about', label: 'About', href: pagePaths.about },
+  { key: 'contact', label: 'Contact', href: pagePaths.contact },
 ];
 
 const contactRoutes = {
-  start: '/contact.html?path=new',
-  fix: '/contact.html?path=fix',
-  quote: '/contact.html?path=new',
-  audit: '/contact.html?path=fix',
+  start: `${pagePaths.contact}?path=new`,
+  fix: `${pagePaths.contact}?path=fix`,
+  quote: `${pagePaths.contact}?path=new`,
+  audit: `${pagePaths.contact}?path=fix`,
 };
 
 const portfolioItems = [
@@ -20,7 +35,7 @@ const portfolioItems = [
     type: 'service',
     label: 'Service business website',
     title: 'Black Bridge Mindset',
-    image: '/projects/bbm.png',
+    image: './projects/bbm.png',
     alt: 'Black Bridge Mindset website screenshot',
     problem: 'The business needed a site that looked established fast and made the offer easier to understand.',
     changed: 'Clearer offer framing, stronger trust cues, and a booking path that felt more direct.',
@@ -31,9 +46,9 @@ const portfolioItems = [
     type: 'food',
     label: 'Restaurant website',
     title: 'Cedar & Gold Lebanese Restaurant',
-    image: '/projects/cedar&gold_lebanese.png',
+    image: './projects/cedar&gold_lebanese.png',
     alt: 'Cedar and Gold Lebanese restaurant website screenshot',
-    webp: '/projects/cedar&gold_lebanese.webp',
+    webp: './projects/cedar&gold_lebanese.webp',
     problem: 'Visitors needed fast access to the menu, location details, and the basics that drive restaurant decisions.',
     changed: 'Mobile-first layout, clearer page order, and business info placed where customers actually look first.',
     impact: 'Better mobile usability, easier customer action, and a stronger first impression for new visitors.',
@@ -43,9 +58,9 @@ const portfolioItems = [
     type: 'food',
     label: 'Small business website',
     title: 'Luxurious Cakes Indy',
-    image: '/projects/luxurious_cakes.png',
+    image: './projects/luxurious_cakes.png',
     alt: 'Luxurious Cakes Indy website screenshot',
-    webp: '/projects/luxurious_cakes.webp',
+    webp: './projects/luxurious_cakes.webp',
     problem: 'The business needed a site that made the product line easier to browse and the brand easier to trust.',
     changed: 'Sharper product presentation, clearer browsing flow, and stronger local business positioning.',
     impact: 'Better first impression, easier inquiry flow, and stronger support for quote-driven sales.',
@@ -55,9 +70,9 @@ const portfolioItems = [
     type: 'organization',
     label: 'Organization website',
     title: 'Life Prep Academy Foundation',
-    image: '/projects/life_prep_academy_foundation.png',
+    image: './projects/life_prep_academy_foundation.png',
     alt: 'Life Prep Academy Foundation website screenshot',
-    webp: '/projects/life_prep_academy_foundation.webp',
+    webp: './projects/life_prep_academy_foundation.webp',
     problem: 'The organization needed a clearer way to explain its mission and make involvement feel easier.',
     changed: 'Cleaner content hierarchy, stronger trust signals, and simpler access to program information.',
     impact: 'More clarity for visitors, stronger trust, and easier support for community engagement.',
@@ -90,7 +105,7 @@ const pages = {
 
           <aside class="hero-panel" aria-label="Online presence outcomes preview">
             <div class="hero-panel__card hero-panel__card--image">
-              <img class="section-visual__image" src="/hero image.png" alt="Website mockup shown on desktop and mobile screens" loading="eager" decoding="async" />
+              <img class="section-visual__image" src="${mediaPaths.hero}" alt="Website mockup shown on desktop and mobile screens" loading="eager" decoding="async" />
               <p class="section-visual__caption">A stronger first impression on desktop and mobile helps the business look more established from the first visit.</p>
             </div>
             <div class="hero-panel__card hero-panel__card--primary">
@@ -333,7 +348,7 @@ const pages = {
             <p>The site does not need more clutter. It needs a clearer message, a clearer next step, and fewer places for attention to die before someone contacts the business.</p>
           </div>
           <div class="section-visual__frame">
-            <img class="section-visual__image" src="/web conv.png" alt="Diagram showing a website conversion flow from visitor to website to lead form" loading="lazy" />
+            <img class="section-visual__image" src="${mediaPaths.conversion}" alt="Diagram showing a website conversion flow from visitor to website to lead form" loading="lazy" />
           </div>
         </div>
       </section>
@@ -342,7 +357,7 @@ const pages = {
         <div class="section-header">
           <p class="eyebrow">What these services fix</p>
           <h2>Most businesses do not need more features. They need the right website for where they are right now.</h2>
-          <p class="section-subtitle">If you want proof first, review the <a class="inline-link" href="/portfolio.html">portfolio examples</a>. If you are ready to move, choose the path that fits: <a class="inline-link" href="${contactRoutes.start}">start your website</a> or <a class="inline-link" href="${contactRoutes.fix}">fix the current one</a>.</p>
+          <p class="section-subtitle">If you want proof first, review the <a class="inline-link" href="${pagePaths.portfolio}">portfolio examples</a>. If you are ready to move, choose the path that fits: <a class="inline-link" href="${contactRoutes.start}">start your website</a> or <a class="inline-link" href="${contactRoutes.fix}">fix the current one</a>.</p>
         </div>
         <div class="problem-grid">
           <article class="problem-card"><h3>No online home</h3><p>Without a real website, the business is harder to find, harder to trust, and easier to skip.</p></article>
@@ -383,7 +398,7 @@ const pages = {
             <p>The improvement is not just visual. It is about moving from vague messaging and cluttered pages to a site that looks more credible and guides people toward action.</p>
           </div>
           <div class="section-visual__frame">
-            <img class="section-visual__image" src="/beforevsafteer.png" alt="Before and after website comparison showing a weak layout transformed into a clearer business website" loading="lazy" />
+            <img class="section-visual__image" src="${mediaPaths.beforeAfter}" alt="Before and after website comparison showing a weak layout transformed into a clearer business website" loading="lazy" />
           </div>
         </div>
       </section>
@@ -415,7 +430,7 @@ const pages = {
             <p class="eyebrow">Positioning</p>
             <h2>I do not treat websites like decoration.</h2>
             <p>I look at your website like a business tool. If the business is not online yet, the site needs to establish credibility fast. If the site already exists but does not convert, the structure, message, and CTA need work.</p>
-            <p>That is the difference between a portfolio mindset and a business mindset. I build for clarity, credibility, and conversion. If you want the short version, review the <a class="inline-link" href="/services.html">service breakdown</a> or see the <a class="inline-link" href="/portfolio.html">website examples</a>.</p>
+            <p>That is the difference between a portfolio mindset and a business mindset. I build for clarity, credibility, and conversion. If you want the short version, review the <a class="inline-link" href="${pagePaths.services}">service breakdown</a> or see the <a class="inline-link" href="${pagePaths.portfolio}">website examples</a>.</p>
           </div>
           <div class="about-points">
             <article class="about-point"><h3>Blunt on purpose</h3><p>You get straight answers about what is wrong, what matters, and what can wait.</p></article>
@@ -434,7 +449,7 @@ const pages = {
             <p>The first part of strategy is usually diagnosis. Weak headlines, unclear calls to action, and confusing layouts are common because the page was never built around what the business actually needs the visitor to do.</p>
           </div>
           <div class="section-visual__frame">
-            <img class="section-visual__image" src="/web brkdwn.png" alt="Website critique graphic highlighting weak headline, unclear CTA, and confusing layout" loading="lazy" />
+            <img class="section-visual__image" src="${mediaPaths.breakdown}" alt="Website critique graphic highlighting weak headline, unclear CTA, and confusing layout" loading="lazy" />
           </div>
         </div>
         <div class="process-grid process-grid--wide">
@@ -462,14 +477,14 @@ const pages = {
           <div class="contact-copy">
             <p class="eyebrow">Best fit</p>
             <h2>This is for businesses that either need to get online or need their current site fixed.</h2>
-            <p>If you have no website, I can build the full online presence. If you already have one and it is not producing inquiries, I can fix the message, structure, and lead path. If you need more context first, look at the <a class="inline-link" href="/services.html">services</a> or the <a class="inline-link" href="/portfolio.html">recent website work</a>.</p>
+            <p>If you have no website, I can build the full online presence. If you already have one and it is not producing inquiries, I can fix the message, structure, and lead path. If you need more context first, look at the <a class="inline-link" href="${pagePaths.services}">services</a> or the <a class="inline-link" href="${pagePaths.portfolio}">recent website work</a>.</p>
             <div class="contact-benefits">
               <div class="contact-benefit"><strong>Best for:</strong><span>New website builds, online presence setup, redesigns, landing pages, and conversion cleanup.</span></div>
               <div class="contact-benefit"><strong>What to send:</strong><span>Business name, whether you need a new website or a fix, and what outcome you want from the site.</span></div>
               <div class="contact-benefit"><strong>Reply:</strong><span>I will review the request and respond by email.</span></div>
             </div>
             <div class="contact-visual">
-              <img class="section-visual__image" src="/hero image.png" alt="Mockup of a business website displayed on desktop and mobile" loading="lazy" />
+              <img class="section-visual__image" src="${mediaPaths.hero}" alt="Mockup of a business website displayed on desktop and mobile" loading="lazy" />
               <p class="section-visual__caption">The goal is simple: a website that looks established, works on every screen, and gives people a clear way to contact you.</p>
             </div>
           </div>
@@ -525,7 +540,7 @@ function header(activeKey) {
   return `
     <div class="header-logo" aria-label="Site logo">
       <div class="header-logo__inner">
-        <a class="header-logo__link" href="/" aria-label="Go to top">
+        <a class="header-logo__link" href="${pagePaths.home}" aria-label="Go to top">
           <img class="header-logo__img" src="${hldiLogoUrl}" alt="HLDI logo" loading="eager" decoding="async" />
         </a>
       </div>
@@ -572,16 +587,16 @@ function footer() {
           </div>
           <div class="footer-col">
             <h4>Services</h4>
-            <a href="/services.html">Website Builds</a>
-            <a href="/services.html">Online Presence Setup</a>
-            <a href="/services.html">Website Redesigns</a>
-            <a href="/services.html">Conversion Optimization</a>
-            <a href="/services.html">Landing Pages</a>
+            <a href="${pagePaths.services}">Website Builds</a>
+            <a href="${pagePaths.services}">Online Presence Setup</a>
+            <a href="${pagePaths.services}">Website Redesigns</a>
+            <a href="${pagePaths.services}">Conversion Optimization</a>
+            <a href="${pagePaths.services}">Landing Pages</a>
           </div>
           <div class="footer-col">
             <h4>Proof</h4>
-            <a href="/portfolio.html">Selected Work</a>
-            <a href="/about.html">Why Work With Me</a>
+            <a href="${pagePaths.portfolio}">Selected Work</a>
+            <a href="${pagePaths.about}">Why Work With Me</a>
             <a href="${contactRoutes.quote}">Get a Quote</a>
           </div>
           <div class="footer-col">
@@ -621,7 +636,7 @@ function breadcrumbNav(activeKey) {
   return `
     <nav class="breadcrumbs" aria-label="Breadcrumb">
       <ol class="breadcrumbs__list">
-        <li class="breadcrumbs__item"><a href="/">Home</a></li>
+        <li class="breadcrumbs__item"><a href="${pagePaths.home}">Home</a></li>
         <li class="breadcrumbs__item" aria-current="page">${activeItem.label}</li>
       </ol>
     </nav>

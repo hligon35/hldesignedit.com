@@ -6,7 +6,7 @@ import TurnstileWidget from '../components/TurnstileWidget';
 import { analyzeUrl, checkAccess, saveReport, validateTurnstile } from '../services/api';
 
 function AnalyzePage() {
-  const [url, setUrl] = useState('');
+  const [url, setUrl] = useState('https://');
   const [report, setReport] = useState(null);
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
@@ -85,51 +85,55 @@ function AnalyzePage() {
   return (
     <>
       <PageIntro
-        eyebrow="Live Analysis"
         title="Enter a website and generate the full SAS report"
         description="Submit a live website URL, complete the Turnstile check once, and generate the client report, rebuild prompt, and consultant script from the landing page."
         actions={<Link className="cta-btn secondary" to="/reports">Browse saved reports</Link>}
+        panel={(
+          <article className="service-card sas-detail-card sas-hero-card">
+            <div className="sas-hero-card__stack">
+              {!hasAccess ? (
+                <div className="sas-list-stack sas-access-stack">
+                  <div className="sas-list-card sas-verification-card">
+                    <h3>Verification</h3>
+                    <p>Complete the Turnstile challenge to unlock analysis and report storage for this session.</p>
+                    <TurnstileWidget
+                      siteKey={siteKey}
+                      onToken={(nextToken) => {
+                        setTurnstileToken(nextToken);
+                        setError('');
+                      }}
+                      onExpire={() => setTurnstileToken('')}
+                      onError={() => setError('Turnstile could not be loaded. Check your site key configuration.')}
+                    />
+                    {!siteKey ? <p className="sas-error-banner">Set `TURNSTILE_SITE_KEY` on the Worker or `VITE_TURNSTILE_SITE_KEY` for local fallback.</p> : null}
+                  </div>
+                </div>
+              ) : null}
+              <form className="sas-inline-form sas-inline-form--hero" onSubmit={handleAnalyze}>
+                <label className="sas-input-group">
+                  <span className="sas-label">Client website URL</span>
+                  <input
+                    type="url"
+                    className="form-input sas-input"
+                    value={url}
+                    onChange={(event) => setUrl(event.target.value)}
+                    required
+                  />
+                </label>
+                <button type="submit" className="cta-btn primary" disabled={status === 'loading'}>
+                  {status === 'loading' ? 'Analyzing...' : 'Analyze'}
+                </button>
+              </form>
+              {error ? <p className="sas-error-banner">{error}</p> : null}
+            </div>
+          </article>
+        )}
       />
 
       <section className="services-section sas-content-section">
         <div className="container sas-stack-lg">
-          <article className="service-card sas-detail-card">
-            {!hasAccess ? (
-              <div className="sas-list-stack sas-access-stack">
-                <div className="sas-list-card">
-                  <h3>Verification</h3>
-                  <p>Complete the Turnstile challenge to unlock analysis and report storage for this session.</p>
-                  <TurnstileWidget
-                    siteKey={siteKey}
-                    onToken={(nextToken) => {
-                      setTurnstileToken(nextToken);
-                      setError('');
-                    }}
-                    onExpire={() => setTurnstileToken('')}
-                    onError={() => setError('Turnstile could not be loaded. Check your site key configuration.')}
-                  />
-                  {!siteKey ? <p className="sas-error-banner">Set `TURNSTILE_SITE_KEY` on the Worker or `VITE_TURNSTILE_SITE_KEY` for local fallback.</p> : null}
-                </div>
-              </div>
-            ) : null}
-            <form className="sas-inline-form" onSubmit={handleAnalyze}>
-              <label className="sas-input-group">
-                <span className="sas-label">Client website URL</span>
-                <input
-                  type="url"
-                  className="form-input sas-input"
-                  placeholder="https://example.com"
-                  value={url}
-                  onChange={(event) => setUrl(event.target.value)}
-                  required
-                />
-              </label>
-              <button type="submit" className="cta-btn primary" disabled={status === 'loading'}>
-                {status === 'loading' ? 'Analyzing...' : hasAccess ? 'Analyze' : 'Verify and Analyze'}
-              </button>
-            </form>
-            {error ? <p className="sas-error-banner">{error}</p> : null}
-            {report ? (
+          {report ? (
+            <article className="service-card sas-detail-card">
               <div className="sas-analysis-actions">
                 <button
                   type="button"
@@ -145,8 +149,8 @@ function AnalyzePage() {
                   </Link>
                 ) : null}
               </div>
-            ) : null}
-          </article>
+            </article>
+          ) : null}
 
           {report ? <ReportTabs report={report} /> : null}
         </div>

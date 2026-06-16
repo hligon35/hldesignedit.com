@@ -16,8 +16,11 @@ app.get('/api/config', (_request, response) => {
 });
 
 app.use('/api/access', accessRoutes);
+app.use('/api/sas/access', accessRoutes);
 app.use('/api/analyze', requireAccess, analyzeRoutes);
+app.use('/api/sas/analyze', requireAccess, analyzeRoutes);
 app.use('/api/reports', requireAccess, reportRoutes);
+app.use('/api/sas/reports', requireAccess, reportRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(config.distDir));

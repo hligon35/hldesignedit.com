@@ -14,7 +14,7 @@ import { TaskCreate } from "./endpoints/taskCreate";
 import { TaskDelete } from "./endpoints/taskDelete";
 import { TaskFetch } from "./endpoints/taskFetch";
 import { TaskList } from "./endpoints/taskList";
-import { SasStore } from "./sas/storage";
+import { SasStoreCurrent } from "./sas/storage";
 
 // Start a Hono app
 const app = new Hono<{ Bindings: Env }>();
@@ -54,4 +54,4 @@ app.post("/api/sas/reports", sasReportSave);
 
 // Export the Hono app
 export default app;
-export { SasStore };
+export { SasStoreCurrent };

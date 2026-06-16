@@ -16,7 +16,7 @@ function buildSearchText(report: SasReport): string {
 	].join(" ").toLowerCase();
 }
 
-export class SasStore extends DurableObject<Env> {
+export class SasStoreCurrent extends DurableObject<Env> {
 	constructor(ctx: DurableObjectState, env: Env) {
 		super(ctx, env);
 
@@ -123,3 +123,5 @@ export class SasStore extends DurableObject<Env> {
 		return rows.toArray().map((row) => JSON.parse(row.payload) as SasReport);
 	}
 }
+
+export { SasStoreCurrent as SasStore };

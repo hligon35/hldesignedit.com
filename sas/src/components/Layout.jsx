@@ -1,4 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
+import hldiLogoUrl from '../../../hldiLogo.png?url';
 
 const navItems = [
   { to: '/', label: 'Analyze' },
@@ -11,8 +12,11 @@ function Layout({ children }) {
       <header className="portfolio-header sas-header">
         <div className="nav-container sas-nav-container">
           <Link className="sas-brand" to="/">
-            <span className="sas-brand-mark">SAS</span>
-            <span className="sas-brand-copy">Site Analysis System</span>
+            <img className="sas-brand-logo" src={hldiLogoUrl} alt="HLDI logo" />
+            <span className="sas-brand-copy">
+              <span className="sas-brand-label">hldesignedit.com</span>
+              <span className="sas-brand-subtext">Site Analysis System</span>
+            </span>
           </Link>
           <nav className="sas-nav" aria-label="Primary">
             {navItems.map((item) => (
