@@ -7,6 +7,7 @@ declare global {
 		FORMS_FROM_EMAIL?: string;
 		ALLOWED_ORIGINS?: string;
 		SAS_ALLOWED_ORIGINS?: string;
+		TURNSTILE_SITE_PUBLIC_KEY?: string;
 		TURNSTILE_SITE_KEY?: string;
 		OPENAI_API_KEY?: string;
 		TURNSTILE_SECRET_KEY?: string;
