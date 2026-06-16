@@ -397,22 +397,26 @@
     line-height: 1.2;
   }
 
+  .sas-nav {
+    justify-self: end;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 0.4rem;
     width: min(7.5rem, 100%);
     justify-items: stretch;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.45rem;
-    width: min(8rem, 100%);
   }
 
+  .sas-nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     min-height: 2.35rem;
     padding: 0.45rem 0.7rem;
     border: 1px solid rgba(194, 65, 12, 0.18);
     border-radius: 999px;
     background: rgba(255, 253, 248, 0.96);
     box-shadow: 0 8px 24px rgba(28, 25, 23, 0.08);
-    align-items: center;
+  }
 
   .sas-nav-link::after {
     display: none;
@@ -422,24 +426,24 @@
     border-color: rgba(194, 65, 12, 0.45);
     background: #fff7ed;
   }
-    justify-content: center;
-    min-height: 2.55rem;
-    padding-top: 6rem;
-    border: 1px solid rgba(194, 65, 12, 0.16);
-    border-radius: 999px;
-    background: rgba(255, 253, 248, 0.96);
-  }
-    padding-left: 1rem;
-    padding-right: 1rem;
-    display: none;
-  }
-
-    font-size: 2.35rem;
-    line-height: 1.08;
-    text-align: left;
-    color: #9a3412;
 
   .sas-page-intro {
+    text-align: left;
+  }
+
+  .sas-page-shell {
+    padding-top: 7.5rem;
+  }
+
+  .sas-hero-panel,
+  .services-section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .sas-page-intro h1 {
+    font-size: 2.35rem;
+    line-height: 1.08;
     text-align: left;
   }
 
@@ -448,10 +452,10 @@
     margin-bottom: 1.4rem;
     text-align: left;
   }
-    border-color: rgba(194, 65, 12, 0.28);
-    box-shadow: 0 8px 18px rgba(28, 25, 23, 0.08);
-    height: 3.7rem;
 
+  .sas-brand-logo {
+    height: 3.75rem;
+  }
 
   .sas-brand-label {
     font-size: 0.62rem;
@@ -466,25 +470,11 @@
     padding: 1rem;
     border-radius: 1.15rem;
   }
-  .sas-page-shell {
-    padding-top: 7.5rem;
-  }
-
 
   .sas-verification-card,
   .sas-error-banner,
   .sas-input {
     font-size: 0.97rem;
-  }
-  .sas-hero-panel,
-  .services-section {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .sas-page-intro h1 {
-    font-size: 2.8rem;
-    text-align: left;
   }
 
   .sas-page-intro .value-proposition {
@@ -493,17 +483,8 @@
     margin-right: 0;
   }
 
-  .sas-brand-logo {
-    height: 3.75rem;
-  }
-
   .sas-inline-form {
     gap: var(--spacing-md);
-  }
-
-  .sas-hero-card {
-    padding: 1.15rem;
-    border-radius: 1.2rem;
   }
 
   .sas-verification-card,
