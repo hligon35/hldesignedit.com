@@ -173,6 +173,7 @@ export async function analyzeWebsite(url: string, env: Env): Promise<SasAnalysis
 	const snapshot = await fetchWebsiteSnapshot(url);
 
 	if (!env.OPENAI_API_KEY) {
+		console.warn("SAS OpenAI analysis skipped because OPENAI_API_KEY is missing.", { url });
 		return createFallbackAnalysis(url, snapshot);
 	}
 
@@ -207,7 +208,8 @@ export async function analyzeWebsite(url: string, env: Env): Promise<SasAnalysis
 		});
 
 		if (!response.ok) {
-			throw new Error(`OpenAI request failed: ${response.status}`);
+			const failureText = (await response.text()).slice(0, 500);
+			throw new Error(`OpenAI request failed: ${response.status} ${failureText}`.trim());
 		}
 
 		const payload = await response.json<any>();
@@ -218,7 +220,11 @@ export async function analyzeWebsite(url: string, env: Env): Promise<SasAnalysis
 		}
 
 		return SasAnalysisSchema.parse(JSON.parse(outputText));
-	} catch {
+	} catch (error) {
+		console.error("SAS OpenAI analysis failed; using fallback analysis.", {
+			url,
+			error: error instanceof Error ? error.message : String(error),
+		});
 		return createFallbackAnalysis(url, snapshot);
 	}
 }
