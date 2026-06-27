@@ -85,6 +85,8 @@ For the dedicated SAS deployment, set them on the `sas` environment:
 - `wrangler secret put OPENAI_API_KEY --env sas`
 - `wrangler secret put TURNSTILE_SECRET_KEY --env sas`
 
+`OPENAI_API_KEY` is required for analysis. If it is missing or the OpenAI request fails, the SAS analyze endpoint returns an error instead of displaying fallback analysis.
+
 This Wrangler version does not validate required secrets from `wrangler.jsonc`, so the commands above are the source of truth for the SAS environment.
 
 Set the public Turnstile site key in `wrangler.jsonc` under `vars.TURNSTILE_SITE_KEY`.
