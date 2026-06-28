@@ -66,6 +66,14 @@ function createReportId() {
 	return new Date().toISOString().replace(/[.:]/g, "-");
 }
 
+function getSafeErrorMessage(error: unknown) {
+	if (error instanceof Error && error.message) {
+		return error.message;
+	}
+
+	return "Analysis failed before a report could be generated.";
+}
+
 export async function sasOptions(c: AppContext) {
 	return new Response(null, { status: 204, headers: getCorsHeaderRecord(c) });
 }
@@ -122,15 +130,19 @@ export async function sasAnalyze(c: AppContext) {
 		return c.json({ error: "Provide a valid absolute URL." }, 400, getCorsHeaderRecord(c));
 	}
 
-	const analysis = await analyzeWebsite(parsed.url, c.env);
-	const report: SasReport = {
-		id: createReportId(),
-		url: parsed.url,
-		timestamp: new Date().toISOString(),
-		...analysis,
-	};
+	try {
+		const analysis = await analyzeWebsite(parsed.url, c.env);
+		const report: SasReport = {
+			id: createReportId(),
+			url: parsed.url,
+			timestamp: new Date().toISOString(),
+			...analysis,
+		};
 
-	return c.json({ report }, 200, getCorsHeaderRecord(c));
+		return c.json({ report }, 200, getCorsHeaderRecord(c));
+	} catch (error) {
+		return c.json({ error: getSafeErrorMessage(error) }, 502, getCorsHeaderRecord(c));
+	}
 }
 
 export async function sasReportsList(c: AppContext) {

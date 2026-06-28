@@ -115,42 +115,6 @@ function buildPrompt(url: string, snapshot: string) {
 	].join("\n\n");
 }
 
-function createFallbackAnalysis(url: string, snapshot: string): SasAnalysis {
-	const excerpt = snapshot.slice(0, 700);
-
-	return {
-		overallScore: 62,
-		categories: {
-			conversion: { score: 60, summary: "Calls to action and proof need to be clearer and easier to act on." },
-			traffic_seo: { score: 64, summary: "The site has useful content but needs stronger search structure and intent clarity." },
-			ux_ui: { score: 63, summary: "The page likely communicates value, but hierarchy and scanning flow can improve." },
-			brand_consistency: { score: 61, summary: "Brand presentation needs tighter consistency across the site." },
-		},
-		topFixes: [
-			{ title: "Strengthen above-the-fold messaging", impact: "high", description: "Make the offer, CTA, and proof visible immediately in the first viewport." },
-			{ title: "Clarify the site path", impact: "medium", description: "Reduce cognitive load by tightening navigation and grouping content around decisions." },
-			{ title: "Standardize trust cues", impact: "medium", description: "Use testimonials, proof points, and support messaging more consistently." },
-		],
-		sectionInsights: [
-			{
-				section: "Homepage hero",
-				whatIsWrong: "The opening section may not connect the offer to a clear next step fast enough.",
-				whyItMatters: "Visitors decide quickly whether the site is relevant and trustworthy.",
-				whatToDo: "Lead with one clear offer, one direct CTA, and one proof-driven support statement.",
-			},
-			{
-				section: "Service positioning",
-				whatIsWrong: "Offer descriptions may be capability-heavy instead of outcome-focused.",
-				whyItMatters: "Prospects respond faster when they understand benefits and business results.",
-				whatToDo: "Rewrite key sections around buyer outcomes, trust signals, and the next action.",
-			},
-		],
-		clientFacingSummary: `SAS could not reach the OpenAI service, so this report uses direct content extraction from ${url}. The site has a usable foundation, but it would benefit from a clearer conversion path, stronger information hierarchy, and tighter brand consistency.`,
-		aiScaffoldPrompt: `Rebuild ${url} as a modern, responsive business website with an admin backend for editing content, services, testimonials, and SEO settings. Use this extracted context as source material:\n\n${excerpt}\n\nPrioritize stronger CTAs, clearer hierarchy, better SEO structure, and more consistent branding across all sections.`,
-		consultantScript: "Here is the short version I would tell the client: the site has a solid base, but it is not converting as efficiently as it should. The biggest opportunities are clarifying the main offer, tightening the page structure, and making the brand feel more consistent from top to bottom. Once those are fixed, the site should communicate value faster and support better lead generation.",
-	};
-}
-
 function extractOutputText(payload: any): string | null {
 	if (typeof payload?.output_text === "string" && payload.output_text.trim()) {
 		return payload.output_text;
@@ -171,54 +135,64 @@ function extractOutputText(payload: any): string | null {
 
 export async function analyzeWebsite(url: string, env: Env): Promise<SasAnalysis> {
 	const snapshot = await fetchWebsiteSnapshot(url);
+	const apiKey = env.OPENAI_API_KEY?.trim();
 
-	if (!env.OPENAI_API_KEY) {
-		return createFallbackAnalysis(url, snapshot);
+	if (!apiKey) {
+		throw new Error("OPENAI_API_KEY is not configured for the SAS Worker environment.");
 	}
 
-	try {
-		const response = await fetch("https://api.openai.com/v1/responses", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${env.OPENAI_API_KEY}`,
-			},
-			body: JSON.stringify({
-				model: "gpt-5.1-mini",
-				input: [
-					{
-						role: "system",
-						content: [{ type: "input_text", text: "Analyze the provided website content and return only JSON matching the requested schema." }],
-					},
-					{
-						role: "user",
-						content: [{ type: "input_text", text: buildPrompt(url, snapshot) }],
-					},
-				],
-				text: {
-					format: {
-						type: "json_schema",
-						name: "site_analysis_report",
-						schema: ANALYSIS_JSON_SCHEMA,
-						strict: true,
-					},
+	const response = await fetch("https://api.openai.com/v1/responses", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${apiKey}`,
+		},
+		body: JSON.stringify({
+			model: "gpt-5.1-mini",
+			input: [
+				{
+					role: "system",
+					content: [{ type: "input_text", text: "Analyze the provided website content and return only JSON matching the requested schema." }],
 				},
-			}),
-		});
+				{
+					role: "user",
+					content: [{ type: "input_text", text: buildPrompt(url, snapshot) }],
+				},
+			],
+			text: {
+				format: {
+					type: "json_schema",
+					name: "site_analysis_report",
+					schema: ANALYSIS_JSON_SCHEMA,
+					strict: true,
+				},
+			},
+		}),
+	});
 
-		if (!response.ok) {
-			throw new Error(`OpenAI request failed: ${response.status}`);
-		}
-
-		const payload = await response.json<any>();
-		const outputText = extractOutputText(payload);
-
-		if (!outputText) {
-			throw new Error("OpenAI response did not include output text.");
-		}
-
-		return SasAnalysisSchema.parse(JSON.parse(outputText));
-	} catch {
-		return createFallbackAnalysis(url, snapshot);
+	if (!response.ok) {
+		const message = await response.text().catch(() => "");
+		throw new Error(`OpenAI request failed: ${response.status}${message ? ` ${message}` : ""}`);
 	}
+
+	const payload = await response.json<any>();
+	const outputText = extractOutputText(payload);
+
+	if (!outputText) {
+		throw new Error("OpenAI response did not include output text.");
+	}
+
+	let parsedJson: unknown;
+	try {
+		parsedJson = JSON.parse(outputText);
+	} catch {
+		throw new Error("OpenAI response was not valid JSON.");
+	}
+
+	const parsed = SasAnalysisSchema.safeParse(parsedJson);
+	if (!parsed.success) {
+		throw new Error(`OpenAI response did not match the SAS analysis schema: ${parsed.error.message}`);
+	}
+
+	return parsed.data;
 }

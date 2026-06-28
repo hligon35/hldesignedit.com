@@ -22,12 +22,12 @@ SAS is a full-stack website auditing application built on top of this workspace'
 Copy `.env.example` to `.env` and set the following values:
 
 - `PORT`: Express server port. Defaults to `8787`.
-- `OPENAI_API_KEY`: Used for live LLM analysis.
+- `OPENAI_API_KEY`: Required for live LLM analysis.
 - `TURNSTILE_SECRET_KEY`: Server-side Cloudflare Turnstile secret.
 - `TURNSTILE_SITE_KEY`: Public Turnstile site key returned by the backend.
 - `VITE_TURNSTILE_SITE_KEY`: Optional frontend build-time fallback. You can set it to the same value as `TURNSTILE_SITE_KEY`.
 
-If `OPENAI_API_KEY` is missing, SAS falls back to a deterministic on-server analysis generated from the fetched site content so the UI still works during setup.
+If `OPENAI_API_KEY` is missing or the OpenAI request fails, SAS now returns an analysis error instead of generating a fallback report. This prevents placeholder analysis from being mistaken for ChatGPT-backed analysis.
 
 ## Development
 
@@ -114,7 +114,7 @@ The backend utility at `backend/llm/analyzeWebsite.js`:
 3. Sends a structured prompt to OpenAI
 4. Returns JSON matching the required analysis contract
 
-If the OpenAI request fails, the utility returns a fallback structured report instead of breaking the workflow.
+If the OpenAI key is missing, the OpenAI request fails, or the response cannot be parsed, the API returns an error so the UI does not display non-OpenAI fallback analysis.
 
 ## Deployment note
 
