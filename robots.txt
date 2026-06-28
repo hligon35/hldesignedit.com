@@ -1,0 +1,41 @@
+User-agent: *
+Allow: /
+
+# Keep private or generated assets out of normal crawling.
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /docs/assets/
+
+# AI crawler policy: allow discovery and search references, but do not permit model-training use.
+# Compliant crawlers may use the public pages for search, citations, and answer retrieval.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: omgilibot
+Disallow: /
+
+User-agent: Omgili
+Disallow: /
+
+# Content usage signal for crawlers that understand Cloudflare-style content signals.
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+
+Sitemap: https://hldesignedit.com/sitemap.xml
