@@ -6,12 +6,13 @@ export default defineConfig({
   root: '.',
   publicDir: 'public',
   build: {
-    outDir: 'docs', // Output to docs/ for GitHub Pages
+    outDir: 'docs',
     emptyOutDir: true,
     rollupOptions: {
       input: {
         home: resolve(__dirname, 'index.html'),
         services: resolve(__dirname, 'services.html'),
+        analyzer: resolve(__dirname, 'analyzer.html'),
         portfolio: resolve(__dirname, 'portfolio.html'),
         about: resolve(__dirname, 'about.html'),
         contact: resolve(__dirname, 'contact.html'),
@@ -19,6 +20,6 @@ export default defineConfig({
     },
   },
   server: {
-    port: 5173
-  }
+    port: 5173,
+  },
 });

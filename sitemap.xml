@@ -1,59 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <url>
-    <loc>https://hldesignedit.com/</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://hldesignedit.com/hero%20image.png</image:loc>
-      <image:title>Small business website design mockup</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hldesignedit.com/services.html</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://hldesignedit.com/web%20conv.png</image:loc>
-      <image:title>Website conversion flow diagram</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hldesignedit.com/portfolio.html</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://hldesignedit.com/beforevsafteer.png</image:loc>
-      <image:title>Website redesign before and after comparison</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hldesignedit.com/about.html</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <image:image>
-      <image:loc>https://hldesignedit.com/web%20brkdwn.png</image:loc>
-      <image:title>Website strategy breakdown graphic</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hldesignedit.com/contact.html</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://hldesignedit.com/hero%20image.png</image:loc>
-      <image:title>Business website mockup on desktop and mobile</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hldesignedit.com/llms.txt</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
-  </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://alphazonelabs.com/</loc><lastmod>2026-07-03</lastmod><priority>1.0</priority></url>
+  <url><loc>https://alphazonelabs.com/services.html</loc><lastmod>2026-07-03</lastmod><priority>0.9</priority></url>
+  <url><loc>https://alphazonelabs.com/analyzer.html</loc><lastmod>2026-07-03</lastmod><priority>0.9</priority></url>
+  <url><loc>https://alphazonelabs.com/portfolio.html</loc><lastmod>2026-07-03</lastmod><priority>0.7</priority></url>
+  <url><loc>https://alphazonelabs.com/about.html</loc><lastmod>2026-07-03</lastmod><priority>0.7</priority></url>
+  <url><loc>https://alphazonelabs.com/contact.html</loc><lastmod>2026-07-03</lastmod><priority>0.8</priority></url>
 </urlset>
