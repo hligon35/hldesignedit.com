@@ -1,16 +1,15 @@
-# Alpha Zone Labs
+# HLDesignedIt
 
-> Websites, automation, apps, and digital systems for businesses that need stronger operations, clearer customer paths, and a more professional online presence.
+> Websites, automation, apps, and digital systems for small businesses that need clearer messaging and more inquiries.
 
 ## Business identity
 
-- Name: Alpha Zone Labs
+- Name: HLDesignedIt
 - Former name: HL Design Edit / Harold Ligon Design & Edit
-- URL: https://alphazonelabs.com/
-- Email: info@alphazonelabs.com
+- URL: https://hldesignedit.com/
+- Email: info@hldesignedit.com
 - Founder: Harold Ligon
-- Positioning: Digital solutions for businesses
-
+- Positioning: Website design and practical digital systems for small businesses
 ## Services
 
 Alpha Zone Labs provides:

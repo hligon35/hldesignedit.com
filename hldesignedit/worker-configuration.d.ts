@@ -8,22 +8,22 @@ declare namespace Cloudflare {
 	}
 	interface SasEnv {
 		EMAIL: SendEmail;
-		FORMS_TO_EMAIL: "info@hldesignedit.com";
-		FORMS_DISPLAY_TO_EMAIL: "info@hldesignedit.com";
-		FORMS_FROM_EMAIL: "noreply@hldesignedit.com";
-		ALLOWED_ORIGINS: "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173,https://hligon35.github.io";
-		SAS_ALLOWED_ORIGINS: "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173";
-		TURNSTILE_SITE_KEY: "0x4AAAAAADlW8pyVXvG6tndX";
+        FORMS_TO_EMAIL: "info@hldesignedit.com";
+        FORMS_DISPLAY_TO_EMAIL: "info@hldesignedit.com";
+        FORMS_FROM_EMAIL: "noreply@hldesignedit.com";
+        ALLOWED_ORIGINS: "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173,https://hligon35.github.io";
+        SAS_ALLOWED_ORIGINS: "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173";
+        TURNSTILE_SITE_KEY: "";
 		SAS_STORE: DurableObjectNamespace /* SasStoreCurrent */;
 	}
 	interface Env {
 		EMAIL: SendEmail;
-		FORMS_TO_EMAIL: "info@hldesignedit.com";
-		FORMS_DISPLAY_TO_EMAIL: "info@hldesignedit.com";
-		FORMS_FROM_EMAIL: "noreply@hldesignedit.com";
-		ALLOWED_ORIGINS: "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173,https://hligon35.github.io";
-		SAS_ALLOWED_ORIGINS: "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173";
-		TURNSTILE_SITE_KEY: "0x4AAAAAADlW8pyVXvG6tndX";
+        FORMS_TO_EMAIL: "info@hldesignedit.com";
+        FORMS_DISPLAY_TO_EMAIL: "info@hldesignedit.com";
+        FORMS_FROM_EMAIL: "noreply@hldesignedit.com";
+        ALLOWED_ORIGINS: "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173,https://hligon35.github.io";
+        SAS_ALLOWED_ORIGINS: "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173";
+        TURNSTILE_SITE_KEY: "";
 		SAS_STORE: DurableObjectNamespace /* SasStoreCurrent */;
 	}
 }
