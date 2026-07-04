@@ -4,7 +4,7 @@ import type { AppContext } from "../types";
 const MAX_FIELD_LENGTH = 10_000;
 
 const FormSubmitSchema = z.object({
-	formType: z.enum(["contact", "project"]),
+	formType: z.enum(["contact", "project", "analyzer"]),
 	data: z.record(z.string(), z.any()).default({}),
 	honeypot: z.string().optional().default(""),
 	pageUrl: z.string().url().optional(),
@@ -17,8 +17,9 @@ function getAllowedOrigins(env: Env): string[] {
 		.filter(Boolean);
 
 	const defaults = [
-		"https://hldesignedit.com",
-		"https://www.hldesignedit.com",
+		"https://alphazonelabs.com",
+		"https://www.alphazonelabs.com",
+		"https://sas.alphazonelabs.com",
 		"http://localhost:5173",
 		"http://127.0.0.1:5173",
 		"https://hligon35.github.io",
@@ -97,63 +98,39 @@ export async function FormsSubmit(c: AppContext) {
 		const body = await c.req.json();
 		parsed = FormSubmitSchema.parse(body);
 	} catch {
-		return c.json(
-			{ ok: false, error: "Invalid JSON body." },
-			400,
-			{ ...cors, "Content-Type": "application/json" }
-		);
+		return c.json({ ok: false, error: "Invalid JSON body." }, 400, { ...cors, "Content-Type": "application/json" });
 	}
 
-	// Basic spam trap
 	if (parsed.honeypot && parsed.honeypot.trim().length > 0) {
 		return c.json({ ok: true }, 200, { ...cors, "Content-Type": "application/json" });
 	}
 
-	const to = c.env.FORMS_TO_EMAIL || "info@hldesignedit.com";
-	const from = c.env.FORMS_FROM_EMAIL || "noreply@hldesignedit.com";
+	const to = c.env.FORMS_TO_EMAIL || "info@alphazonelabs.com";
+	const from = c.env.FORMS_FROM_EMAIL || "noreply@alphazonelabs.com";
 
 	if (!c.env.EMAIL) {
-		return c.json(
-			{ ok: false, error: "Email service not configured." },
-			500,
-			{ ...cors, "Content-Type": "application/json" }
-		);
+		return c.json({ ok: false, error: "Email service not configured." }, 500, { ...cors, "Content-Type": "application/json" });
 	}
 
 	const data = parsed.data || {};
-	// Note: We intentionally do not include request metadata in the email body.
-
-	const isProject = parsed.formType === "project";
+	const isProject = parsed.formType === "project" || parsed.formType === "analyzer";
+	const isAnalyzer = parsed.formType === "analyzer";
 	const name = sanitizeField(pickFirstNonEmpty(data, ["fullName", "name"])).trim();
-	const email = sanitizeField(
-		pickFirstNonEmpty(data, ["email", "contactEmail", "emailAddress"])
-	).trim();
-	const phone = sanitizeField(
-		pickFirstNonEmpty(data, ["phone", "phoneNumber", "contactPhone", "tel"])
-	).trim();
-	const company = sanitizeField(
-		pickFirstNonEmpty(data, [
-			"company",
-			"companyName",
-			"business",
-			"businessName",
-			"organization",
-			"org",
-		])
-	).trim();
+	const email = sanitizeField(pickFirstNonEmpty(data, ["email", "contactEmail", "emailAddress"])).trim();
+	const phone = sanitizeField(pickFirstNonEmpty(data, ["phone", "phoneNumber", "contactPhone", "tel"])).trim();
+	const company = sanitizeField(pickFirstNonEmpty(data, ["company", "companyName", "business", "businessName", "organization", "org"])).trim();
+	const website = sanitizeField(pickFirstNonEmpty(data, ["website", "url", "siteUrl"])).trim();
 	const budget = sanitizeField(pickFirstNonEmpty(data, ["budget", "projectBudget"])).trim();
-	const timeline = sanitizeField(
-		pickFirstNonEmpty(data, ["timeline", "deadline", "timeframe", "desiredTimeline"])
-	).trim();
+	const timeline = sanitizeField(pickFirstNonEmpty(data, ["timeline", "deadline", "timeframe", "desiredTimeline"])).trim();
 	const contactSubject = sanitizeField(pickFirstNonEmpty(data, ["subject", "topic"])).trim();
 	const message = sanitizeField(pickFirstNonEmpty(data, ["message"])).trim();
-	const details = sanitizeField(
-		pickFirstNonEmpty(data, ["details", "projectDetails", "description", "message"])
-	).trim();
+	const details = sanitizeField(pickFirstNonEmpty(data, ["details", "projectDetails", "description", "message"])).trim();
 
-	const subject = isProject
-		? "New Project Form - HLDesignedIt.com!"
-		: "New Contact Form - HLDesignedIt.com!";
+	const subject = isAnalyzer
+		? "New Analyzer Request - Alpha Zone Labs"
+		: isProject
+			? "New Project Request - Alpha Zone Labs"
+			: "New Contact Message - Alpha Zone Labs";
 
 	const gridPairs: Array<[string, string]> = isProject
 		? [
@@ -161,6 +138,7 @@ export async function FormsSubmit(c: AppContext) {
 			["Company", displayOrNotProvided(company)],
 			["Email", displayOrNotProvided(email)],
 			["Phone Number", displayOrNotProvided(phone)],
+			["Website", displayOrNotProvided(website)],
 			["Budget", displayOrNotProvided(budget)],
 			["Timeline", displayOrNotProvided(timeline)],
 		]
@@ -171,46 +149,41 @@ export async function FormsSubmit(c: AppContext) {
 			["Subject", displayOrNotProvided(contactSubject)],
 		];
 
-	const longLabel = isProject ? "Details" : "Message";
-	const longValue = isProject ? displayOrNotProvided(details) : displayOrNotProvided(message);
+	const longLabel = isAnalyzer ? "Analyzer Notes" : isProject ? "Details" : "Message";
+	const longValue = isProject ? displayOrNotProvided(details || message) : displayOrNotProvided(message);
 
 	const lines: string[] = [];
 	lines.push(subject);
 	lines.push("");
-	for (const [label, value] of gridPairs) {
-		lines.push(`${label}: ${value}`);
-	}
+	for (const [label, value] of gridPairs) lines.push(`${label}: ${value}`);
 	lines.push("");
 	lines.push(`${longLabel}:`);
 	lines.push(longValue);
 
 	const replyTo = pickReplyTo(data);
-
-	const htmlRows = gridPairs
-		.map(([label, value]) => {
-			const safeLabel = escapeHtml(label);
-			const safeValue = escapeHtml(value).replaceAll("\n", "<br>");
-			return `
-				<tr>
-					<td style="padding:0 0 12px 0;">
-						<div style="padding:14px 16px;border:1px solid #e7e5e4;border-radius:14px;background:#ffffff;">
-							<div style="margin:0 0 6px 0;color:#9a3412;font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;">${safeLabel}</div>
-							<div style="color:#171717;font-size:14px;line-height:1.6;">${safeValue}</div>
-						</div>
-					</td>
-				</tr>`;
-		})
-		.join("");
+	const htmlRows = gridPairs.map(([label, value]) => {
+		const safeLabel = escapeHtml(label);
+		const safeValue = escapeHtml(value).replaceAll("\n", "<br>");
+		return `
+			<tr>
+				<td style="padding:0 0 12px 0;">
+					<div style="padding:14px 16px;border:1px solid #e7e5e4;border-radius:14px;background:#ffffff;">
+						<div style="margin:0 0 6px 0;color:#9a3412;font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;">${safeLabel}</div>
+						<div style="color:#171717;font-size:14px;line-height:1.6;">${safeValue}</div>
+					</div>
+				</td>
+			</tr>`;
+	}).join("");
 
 	const longValueHtml = escapeHtml(longValue).replaceAll("\n", "<br>");
 	const longLabelHtml = escapeHtml(longLabel);
-	const requestTypeLabel = isProject ? "Project Request" : "Contact Request";
-	const introCopy = isProject
-		? "A new website inquiry came in from HLDesignedIt. The details below are styled to mirror the site experience: clear, direct, and business-first."
-		: "A new contact message came in from HLDesignedIt. The details below keep the same tone as the site: clear, direct, and business-first.";
-	const replyToHtml = replyTo
-		? `<div style="margin-top:14px;padding:12px 14px;border-radius:12px;background:#fff7ed;border:1px solid #fdba74;color:#7c2d12;font-size:13px;line-height:1.5;"><strong style="color:#171717;">Reply-to:</strong> ${escapeHtml(replyTo)}</div>`
-		: "";
+	const requestTypeLabel = isAnalyzer ? "Analyzer Request" : isProject ? "Project Request" : "Contact Request";
+	const introCopy = isAnalyzer
+		? "A new Digital Presence Analyzer request came in from Alpha Zone Labs."
+		: isProject
+			? "A new project inquiry came in from Alpha Zone Labs."
+			: "A new contact message came in from Alpha Zone Labs.";
+	const replyToHtml = replyTo ? `<div style="margin-top:14px;padding:12px 14px;border-radius:12px;background:#fff7ed;border:1px solid #fdba74;color:#7c2d12;font-size:13px;line-height:1.5;"><strong style="color:#171717;">Reply-to:</strong> ${escapeHtml(replyTo)}</div>` : "";
 
 	const html = `
 		<div style="margin:0;padding:32px 18px;background:#fffaf2;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;color:#171717;line-height:1.6;">
@@ -220,44 +193,22 @@ export async function FormsSubmit(c: AppContext) {
 					<h1 style="margin:0 0 8px 0;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.15;font-weight:700;color:#ffffff;">${escapeHtml(subject)}</h1>
 					<p style="margin:0;font-size:14px;line-height:1.7;color:#ffedd5;">${introCopy}</p>
 				</div>
-
 				<div style="padding:22px 24px;border:1px solid #e7e5e4;border-radius:22px;background:#fffcf8;box-shadow:0 10px 30px rgba(28,25,23,0.06);">
 					<h2 style="margin:0 0 16px 0;font-family:Georgia,'Times New Roman',serif;font-size:22px;line-height:1.2;color:#171717;">Request details</h2>
 					<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:separate;font-size:14px;">
 						${htmlRows || ""}
-						<tr>
-							<td style="padding:4px 0 0 0;">
-								<div style="padding:16px;border:1px solid #e7e5e4;border-radius:16px;background:#ffffff;">
-									<div style="margin:0 0 8px 0;color:#9a3412;font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;">${longLabelHtml}</div>
-									<div style="color:#171717;font-size:14px;line-height:1.7;">${longValueHtml}</div>
-								</div>
-							</td>
-						</tr>
+						<tr><td style="padding:4px 0 0 0;"><div style="padding:16px;border:1px solid #e7e5e4;border-radius:16px;background:#ffffff;"><div style="margin:0 0 8px 0;color:#9a3412;font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;">${longLabelHtml}</div><div style="color:#171717;font-size:14px;line-height:1.7;">${longValueHtml}</div></div></td></tr>
 					</table>
 					${replyToHtml}
 				</div>
-
-				<div style="padding:14px 8px 0;color:#6b7280;font-size:12px;line-height:1.6;text-align:center;">
-					Sent from HLDesignedIt form submissions.
-				</div>
+				<div style="padding:14px 8px 0;color:#6b7280;font-size:12px;line-height:1.6;text-align:center;">Sent from Alpha Zone Labs form submissions.</div>
 			</div>
 		</div>`;
 
 	try {
-		await c.env.EMAIL.send({
-			from: from,
-			to: to,
-			subject: subject,
-			text: lines.join("\n"),
-			html,
-			...(replyTo ? { reply_to: replyTo } : {}),
-		});
+		await c.env.EMAIL.send({ from, to, subject, text: lines.join("\n"), html, ...(replyTo ? { reply_to: replyTo } : {}) });
 	} catch (error) {
-		return c.json(
-			{ ok: false, error: error instanceof Error ? error.message : "Failed to send." },
-			502,
-			{ ...cors, "Content-Type": "application/json" }
-		);
+		return c.json({ ok: false, error: error instanceof Error ? error.message : "Failed to send." }, 502, { ...cors, "Content-Type": "application/json" });
 	}
 
 	return c.json({ ok: true }, 200, { ...cors, "Content-Type": "application/json" });

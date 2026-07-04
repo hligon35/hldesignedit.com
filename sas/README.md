@@ -1,6 +1,6 @@
-# SAS - Site Analysis System
+# Alpha Zone Labs Digital Presence Analyzer
 
-SAS is a full-stack website auditing application built on top of this workspace's existing visual system. It provides a Turnstile-gated intake flow, OpenAI-backed analysis, persistent report storage, and a dashboard for browsing historical reports.
+The Digital Presence Analyzer is a full-stack website auditing application built for Alpha Zone Labs. It provides a Turnstile-gated intake flow, OpenAI-backed analysis, persistent report storage, and a dashboard for browsing historical reports.
 
 ## What it includes
 
@@ -27,7 +27,7 @@ Copy `.env.example` to `.env` and set the following values:
 - `TURNSTILE_SITE_KEY`: Public Turnstile site key returned by the backend.
 - `VITE_TURNSTILE_SITE_KEY`: Optional frontend build-time fallback. You can set it to the same value as `TURNSTILE_SITE_KEY`.
 
-If `OPENAI_API_KEY` is missing or the OpenAI request fails, SAS now returns an analysis error instead of generating a fallback report. This prevents placeholder analysis from being mistaken for ChatGPT-backed analysis.
+If `OPENAI_API_KEY` is missing or the OpenAI request fails, the app returns an analysis error instead of generating a fallback report. This prevents placeholder analysis from being mistaken for ChatGPT-backed analysis.
 
 ## Development
 
@@ -98,7 +98,7 @@ Each saved report contains:
 
 ## Turnstile setup
 
-1. Create a Turnstile widget for `localhost` and `sas.hldesignedit.com`.
+1. Create a Turnstile widget for `localhost` and `sas.alphazonelabs.com`.
 2. Add the site key to `TURNSTILE_SITE_KEY` and optionally `VITE_TURNSTILE_SITE_KEY`.
 3. Add the secret key to `TURNSTILE_SECRET_KEY`.
 4. Start the app and complete the challenge on `/`.
@@ -118,25 +118,4 @@ If the OpenAI key is missing, the OpenAI request fails, or the response cannot b
 
 ## Deployment note
 
-This repository originally contained only a static Vite site plus a `CNAME` pointing to `www.hldesignedit.com`. There was no existing server-capable deployment configuration in the workspace to reuse for an Express backend.
-
-Because of that, the codebase is now prepared for any Node-capable deployment target that can:
-
-- run `npm install`
-- run `npm run build`
-- run `npm start`
-- provide the required environment variables
-- map the custom domain `sas.hldesignedit.com`
-
-If you want this deployed on Cloudflare infrastructure specifically, the current Express requirement means the existing static-only setup will need a separate server-capable target or a follow-up adaptation to Workers.
-
-## Validation completed
-
-The scaffold was validated with:
-
-```bash
-npm install
-npm run build
-node --check backend/server.js
-node --check backend/llm/analyzeWebsite.js
-```
+Deploy the analyzer app under `sas.alphazonelabs.com` or another Alpha Zone Labs subdomain.
