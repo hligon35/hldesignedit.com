@@ -17,14 +17,22 @@ function setAccessToken(token) {
 async function request(path, options = {}) {
   const token = getAccessToken();
 
-  const response = await fetch(`${API_BASE}${path}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...(options.headers || {})
-    },
-    ...options
-  });
+  let response;
+
+  try {
+    response = await fetch(`${API_BASE}${path}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...(options.headers || {})
+      },
+      ...options
+    });
+  } catch (_error) {
+    throw new Error(
+      `Unable to reach the SAS API at ${API_BASE}. Start the backend server or set VITE_API_BASE_URL to a reachable endpoint.`
+    );
+  }
 
   const contentType = response.headers.get('content-type') || '';
   const body = contentType.includes('application/json')
