@@ -4,7 +4,7 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "hldesignedit",
+	"name": "alphazonelabs",
 	"main": "src/index.ts",
 	"compatibility_date": "2026-01-28",
 	"workers_dev": true,
@@ -26,26 +26,26 @@
 		}
 	],
 	"vars": {
-		"FORMS_TO_EMAIL": "info@hldesignedit.com",
-		"FORMS_DISPLAY_TO_EMAIL": "info@hldesignedit.com",
-		"FORMS_FROM_EMAIL": "noreply@hldesignedit.com",
-		"ALLOWED_ORIGINS": "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173,https://hligon35.github.io",
-		"SAS_ALLOWED_ORIGINS": "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173",
+		"FORMS_TO_EMAIL": "info@alphazonelabs.com",
+		"FORMS_DISPLAY_TO_EMAIL": "info@alphazonelabs.com",
+		"FORMS_FROM_EMAIL": "noreply@alphazonelabs.com",
+		"ALLOWED_ORIGINS": "https://alphazonelabs.com,https://www.alphazonelabs.com,https://sas.alphazonelabs.com,http://localhost:5173,http://127.0.0.1:5173,https://hligon35.github.io",
+		"SAS_ALLOWED_ORIGINS": "https://alphazonelabs.com,https://www.alphazonelabs.com,https://sas.alphazonelabs.com,http://localhost:5173,http://127.0.0.1:5173",
 		"TURNSTILE_SITE_KEY": ""
 	},
 	"send_email": [
 		{
 			"name": "EMAIL",
-			"destination_address": "info@hldesignedit.com"
+			"destination_address": "info@alphazonelabs.com"
 		}
 	],
 	"env": {
 		"sas": {
-			"name": "hldesignedit-sas",
+			"name": "alphazonelabs-sas",
 			"workers_dev": false,
 			"routes": [
 				{
-					"pattern": "sas.hldesignedit.com",
+					"pattern": "sas.alphazonelabs.com",
 					"custom_domain": true
 				}
 			],
@@ -57,7 +57,7 @@
 			"send_email": [
 				{
 					"name": "EMAIL",
-					"destination_address": "info@hldesignedit.com"
+					"destination_address": "info@alphazonelabs.com"
 				}
 			],
 			"durable_objects": {
@@ -69,11 +69,11 @@
 				]
 			},
 			"vars": {
-				"FORMS_TO_EMAIL": "info@hldesignedit.com",
-				"FORMS_DISPLAY_TO_EMAIL": "info@hldesignedit.com",
-				"FORMS_FROM_EMAIL": "noreply@hldesignedit.com",
-				"ALLOWED_ORIGINS": "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173,https://hligon35.github.io",
-				"SAS_ALLOWED_ORIGINS": "https://hldesignedit.com,https://www.hldesignedit.com,https://sas.hldesignedit.com,http://localhost:5173,http://127.0.0.1:5173",
+				"FORMS_TO_EMAIL": "info@alphazonelabs.com",
+				"FORMS_DISPLAY_TO_EMAIL": "info@alphazonelabs.com",
+				"FORMS_FROM_EMAIL": "noreply@alphazonelabs.com",
+				"ALLOWED_ORIGINS": "https://alphazonelabs.com,https://www.alphazonelabs.com,https://sas.alphazonelabs.com,http://localhost:5173,http://127.0.0.1:5173,https://hligon35.github.io",
+				"SAS_ALLOWED_ORIGINS": "https://alphazonelabs.com,https://www.alphazonelabs.com,https://sas.alphazonelabs.com,http://localhost:5173,http://127.0.0.1:5173",
 				"TURNSTILE_SITE_KEY": ""
 			}
 		}
