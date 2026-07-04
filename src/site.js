@@ -25,7 +25,6 @@ const mediaPaths = {
 const navigation = [
   { key: 'home', label: 'Home', href: pagePaths.home },
   { key: 'services', label: 'Services', href: pagePaths.services },
-  { key: 'analyzer', label: 'Analyzer', href: pagePaths.analyzer },
   { key: 'portfolio', label: 'Work', href: pagePaths.portfolio },
   { key: 'about', label: 'About', href: pagePaths.about },
   { key: 'contact', label: 'Start a Project', href: pagePaths.contact },
@@ -140,7 +139,7 @@ const pages = {
             <p class="hero-lead">Alpha Zone Labs builds practical digital systems that help customers find you, contact you, register, pay attention, and move through your process without confusion.</p>
             <div class="hero-actions">
               <a href="${pagePaths.contact}" class="cta-btn primary">Start a Project</a>
-              <a href="${pagePaths.analyzer}" class="cta-btn secondary">Analyze My Website</a>
+              <a href="${pagePaths.services}" class="cta-btn secondary">Explore Services</a>
             </div>
             <div class="hero-proof">
               <span>Websites</span>
@@ -167,7 +166,6 @@ const pages = {
 
       ${solutionPathSection()}
       ${servicesPreviewSection()}
-      ${analyzerPromoSection()}
       ${processSection()}
       ${workPreviewSection()}
       ${ctaPanel('Ready to make your digital setup easier to use?', 'Tell us what you need to build, fix, automate, or connect.', pagePaths.contact, 'Start a Project', pagePaths.services, 'Explore Services')}
@@ -195,28 +193,28 @@ const pages = {
           <article class="problem-card"><h3>Stay organized</h3><p>Dashboards and tools help you see what is happening and what needs attention.</p></article>
         </div>
       </section>
-      ${ctaPanel('Need help choosing the right solution?', 'Send a quick project request and we will point you toward the cleanest next step.', pagePaths.contact, 'Start a Project', pagePaths.analyzer, 'Analyze My Website')}
+      ${ctaPanel('Need help choosing the right solution?', 'Send a quick project request and we will point you toward the cleanest next step.', pagePaths.contact, 'Start a Project', pagePaths.services, 'View Services')}
     `,
   },
   analyzer: {
     bodyClass: 'page-interior page-contact',
     main: `
-      ${pageHero('analyzer', 'Digital Presence Analyzer', 'Find out where your website is losing trust, clarity, or leads.', 'Submit your site for a practical review of your message, mobile experience, search readiness, and conversion path.')}
+      ${pageHero('analyzer', 'Digital Presence Review', 'Find out where your website is losing trust, clarity, or leads.', 'Submit your site for a practical review of your message, mobile experience, search readiness, and conversion path.')}
       <section class="contact-section contact-section--page">
         <div class="contact-layout">
           <div class="contact-copy">
-            <p class="eyebrow">Website audit</p>
+            <p class="eyebrow">Website review</p>
             <h2>Know what to fix before you rebuild.</h2>
-            <p>The analyzer is for business owners who already have a website and want a clearer view of what is working, what is weak, and what should improve first.</p>
+            <p>This review is for business owners who already have a website and want a clearer view of what is working, what is weak, and what should improve first.</p>
             <div class="contact-benefits">
               <div class="contact-benefit"><strong>Checks</strong><span>Clarity, trust, mobile usability, search signals, AI-readiness, and lead flow.</span></div>
               <div class="contact-benefit"><strong>Best for</strong><span>Outdated sites, low inquiries, unclear offers, or websites that feel hard to use.</span></div>
               <div class="contact-benefit"><strong>Next step</strong><span>Send your URL and we will review the highest-impact opportunities.</span></div>
             </div>
           </div>
-          <div class="basic-contact-card" aria-label="Digital Presence Analyzer form">
+          <div class="basic-contact-card" aria-label="Digital presence review form">
             <div class="section-header section-header--left">
-              <h2>Analyze Your Website</h2>
+              <h2>Request Website Review</h2>
               <p class="section-subtitle">Share your website and what you want to improve.</p>
             </div>
             ${analyzerForm()}
@@ -334,12 +332,12 @@ function footer() {
       <div class="footer-inner">
         <div class="footer-cta">
           <div class="footer-cta__text"><h3>Build a cleaner digital system for your business.</h3><p>Websites, automation, and custom tools that help people take action and help your team keep up.</p></div>
-          <div class="footer-cta__actions"><a href="${pagePaths.contact}" class="cta-btn primary">Start a Project</a><a href="${pagePaths.analyzer}" class="cta-btn secondary">Analyze My Site</a></div>
+          <div class="footer-cta__actions"><a href="${pagePaths.contact}" class="cta-btn primary">Start a Project</a><a href="${pagePaths.services}" class="cta-btn secondary">View Services</a></div>
         </div>
         <div class="footer-grid" aria-label="Footer navigation">
           <div class="footer-col"><h4>Company</h4><a href="${pagePaths.about}">About</a><a href="${pagePaths.portfolio}">Work</a><a href="${pagePaths.contact}">Contact</a></div>
           <div class="footer-col"><h4>Services</h4><a href="${pagePaths.services}">Websites</a><a href="${pagePaths.services}">Automation</a><a href="${pagePaths.services}">Apps & Tools</a><a href="${pagePaths.services}">Strategy</a></div>
-          <div class="footer-col"><h4>Tools</h4><a href="${pagePaths.analyzer}">Website Analyzer</a><a href="${contactRoutes.website}">Website Project</a><a href="${contactRoutes.automation}">Automation Project</a></div>
+          <div class="footer-col"><h4>Start</h4><a href="${contactRoutes.website}">Website Project</a><a href="${contactRoutes.automation}">Automation Project</a><a href="${contactRoutes.app}">App or Tool Project</a></div>
           <div class="footer-col"><h4>Contact</h4><a href="mailto:${brand.email}">${brand.email}</a><a href="${brand.domain}">${brand.domain.replace('https://', '')}</a></div>
         </div>
         <div class="footer-bottom"><a class="footer-backtotop" href="#top">Back to top</a><div class="footer-legal">© <span id="footer-year">2026</span> ${brand.name}</div></div>
@@ -373,10 +371,6 @@ function solutionPathSection() {
 
 function servicesPreviewSection() {
   return `<section class="services-section"><div class="section-header"><p class="eyebrow">Services</p><h2>Simple digital solutions with a clear business purpose.</h2><p class="section-subtitle">We build the pieces your customers see and the systems your team depends on.</p></div><div class="services-grid">${servicePillars.map((service) => serviceCard(service)).join('')}</div></section>`;
-}
-
-function analyzerPromoSection() {
-  return `<section class="best-fit-section alpha-analyzer-strip"><div class="section-header"><p class="eyebrow">Free starting point</p><h2>Not sure what your website needs?</h2><p class="section-subtitle">Run the Digital Presence Analyzer to spot clarity, trust, mobile, search, and conversion opportunities.</p></div><div class="section-cta section-cta--dual"><a href="${pagePaths.analyzer}" class="cta-btn primary">Analyze My Website</a><a href="${contactRoutes.website}" class="cta-btn secondary">Fix or Rebuild My Site</a></div></section>`;
 }
 
 function processSection() {
@@ -417,7 +411,7 @@ function contactForm() {
 }
 
 function analyzerForm() {
-  return `<form id="basic-contact-form" class="basic-contact-form" data-form-kind="analyzer" novalidate><input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" class="honeypot" /><input type="hidden" name="requestType" value="analyzer" /><div class="form-row"><div class="form-group"><label class="form-label required" for="contact-name">Name</label><input id="contact-name" name="name" type="text" class="form-input" autocomplete="name" placeholder="Your name" required /></div><div class="form-group"><label class="form-label required" for="contact-email">Email</label><input id="contact-email" name="email" type="email" class="form-input" autocomplete="email" placeholder="you@example.com" required /></div></div><div class="form-group"><label class="form-label required" for="contact-business">Business Name</label><input id="contact-business" name="businessName" type="text" class="form-input" autocomplete="organization" placeholder="Your business" required /></div><div class="form-group"><label class="form-label required" for="contact-website">Website to Analyze</label><input id="contact-website" name="website" type="url" class="form-input" autocomplete="url" placeholder="https://yourwebsite.com" required /></div><div class="form-group"><label id="contact-message-label" class="form-label" for="contact-message">What do you want improved?</label><p id="contact-form-note" class="form-note">Examples: more leads, clearer services, better mobile experience, stronger trust, or better search visibility.</p><textarea id="contact-message" name="message" class="form-textarea" placeholder="Optional notes"></textarea></div><div class="basic-contact-actions"><button type="submit" class="cta-btn primary">Run Website Analyzer</button><p id="basic-contact-status" class="basic-contact-status" aria-live="polite"></p></div></form>`;
+  return `<form id="basic-contact-form" class="basic-contact-form" data-form-kind="analyzer" novalidate><input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" class="honeypot" /><input type="hidden" name="requestType" value="analyzer" /><div class="form-row"><div class="form-group"><label class="form-label required" for="contact-name">Name</label><input id="contact-name" name="name" type="text" class="form-input" autocomplete="name" placeholder="Your name" required /></div><div class="form-group"><label class="form-label required" for="contact-email">Email</label><input id="contact-email" name="email" type="email" class="form-input" autocomplete="email" placeholder="you@example.com" required /></div></div><div class="form-group"><label class="form-label required" for="contact-business">Business Name</label><input id="contact-business" name="businessName" type="text" class="form-input" autocomplete="organization" placeholder="Your business" required /></div><div class="form-group"><label class="form-label required" for="contact-website">Website to Review</label><input id="contact-website" name="website" type="url" class="form-input" autocomplete="url" placeholder="https://yourwebsite.com" required /></div><div class="form-group"><label id="contact-message-label" class="form-label" for="contact-message">What do you want improved?</label><p id="contact-form-note" class="form-note">Examples: more leads, clearer services, better mobile experience, stronger trust, or better search visibility.</p><textarea id="contact-message" name="message" class="form-textarea" placeholder="Optional notes"></textarea></div><div class="basic-contact-actions"><button type="submit" class="cta-btn primary">Request Website Review</button><p id="basic-contact-status" class="basic-contact-status" aria-live="polite"></p></div></form>`;
 }
 
 function requestOption(value, title, copy) {
@@ -467,13 +461,13 @@ function initBasicContactForm() {
     if (!name) { setStatus('Enter your name.'); nameInput?.focus(); return; }
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) { setStatus('Enter a valid email address.'); emailInput?.focus(); return; }
     if (!businessName) { setStatus('Enter your business name.'); businessInput?.focus(); return; }
-    if (requestType === 'analyzer' && !website) { setStatus('Enter the website you want analyzed.'); websiteInput?.focus(); return; }
+    if (requestType === 'analyzer' && !website) { setStatus('Enter the website you want reviewed.'); websiteInput?.focus(); return; }
     if (formKind !== 'analyzer' && !message) { setStatus('Tell us what you need help with.'); messageInput?.focus(); return; }
     if (!(submitBtn instanceof HTMLButtonElement)) return;
     submitBtn.disabled = true;
-    setStatus(requestType === 'analyzer' ? 'Sending analyzer request...' : 'Sending project request...');
-    fetch(getFormsEndpoint(), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ formType: requestType === 'analyzer' ? 'analyzer' : 'project', honeypot: String(data.get('company') || ''), pageUrl: window.location.href, data: { requestType, fullName: name, email, businessName, website, projectTitle: requestType === 'analyzer' ? 'Digital Presence Analyzer Request' : `Alpha Zone Labs ${requestType} Request`, projectSummary: message || `Analyze ${website}`, message, details: `Request Type: ${requestType}\nBusiness: ${businessName}${website ? `\nWebsite: ${website}` : ''}\n\nMessage: ${message || 'Analyzer request submitted.'}` } }) })
-      .then(async (response) => { const payload = await response.json().catch(() => null); if (!response.ok || !payload?.ok) throw new Error(payload?.error || 'Unable to send request.'); setStatus(requestType === 'analyzer' ? 'Analyzer request sent. We will review the site and reply by email.' : 'Project request sent. We will review it and reply by email.'); form.reset(); applyRequestType(); })
+    setStatus(requestType === 'analyzer' ? 'Sending website review request...' : 'Sending project request...');
+    fetch(getFormsEndpoint(), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ formType: requestType === 'analyzer' ? 'analyzer' : 'project', honeypot: String(data.get('company') || ''), pageUrl: window.location.href, data: { requestType, fullName: name, email, businessName, website, projectTitle: requestType === 'analyzer' ? 'Website Review Request' : `Alpha Zone Labs ${requestType} Request`, projectSummary: message || `Review ${website}`, message, details: `Request Type: ${requestType}\nBusiness: ${businessName}${website ? `\nWebsite: ${website}` : ''}\n\nMessage: ${message || 'Website review request submitted.'}` } }) })
+      .then(async (response) => { const payload = await response.json().catch(() => null); if (!response.ok || !payload?.ok) throw new Error(payload?.error || 'Unable to send request.'); setStatus(requestType === 'analyzer' ? 'Website review request sent. We will reply by email.' : 'Project request sent. We will review it and reply by email.'); form.reset(); applyRequestType(); })
       .catch(() => { setStatus(`Could not send right now. Email ${brand.email}.`); })
       .finally(() => { submitBtn.disabled = false; });
   });
