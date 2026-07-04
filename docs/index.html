@@ -5,16 +5,28 @@
     <link rel="icon" type="image/png" href="./assets/hldiLogo-BtyvKZxo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#111111" />
-    <title>HLDesignedIt | Website Design & Small Business Websites</title>
-    <meta name="description" content="HLDesignedIt builds clear, credible websites for small businesses, helping them get more inquiries and bookings." />
-    <meta name="author" content="Harold Ligon" />
-    <link rel="canonical" href="https://hldesignedit.com/" />
+    <title>Alpha Zone Labs | Websites, Automation, Apps & Digital Systems</title>
+    <meta name="description" content="Alpha Zone Labs builds websites, automation, apps, and digital systems for businesses that need clearer customer paths and smoother operations." />
+    <meta name="author" content="Alpha Zone Labs" />
+    <link rel="canonical" href="https://alphazonelabs.com/" />
     <link rel="sitemap" type="application/xml" href="https://alphazonelabs.com/sitemap.xml" />
     <script type="module" crossorigin src="./assets/home-cA_q6rnA.js"></script>
     <link rel="modulepreload" crossorigin href="./assets/site-CnrJLcAb.js">
     <link rel="stylesheet" crossorigin href="./assets/site-DssUk0eO.css">
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app"></div>
+    <script>
+      (() => {
+        const cleanup = () => {
+          document.querySelectorAll('a[href*="analyzer.html"]').forEach((link) => link.remove());
+          document.querySelectorAll('.nav-links a').forEach((link) => {
+            if ((link.textContent || '').trim().toLowerCase() === 'analyzer') link.remove();
+          });
+        };
+        cleanup();
+        new MutationObserver(cleanup).observe(document.documentElement, { childList: true, subtree: true });
+      })();
+    </script>
   </body>
 </html>
