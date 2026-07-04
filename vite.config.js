@@ -12,7 +12,6 @@ export default defineConfig({
       input: {
         home: resolve(__dirname, 'index.html'),
         services: resolve(__dirname, 'services.html'),
-        analyzer: resolve(__dirname, 'analyzer.html'),
         portfolio: resolve(__dirname, 'portfolio.html'),
         about: resolve(__dirname, 'about.html'),
         contact: resolve(__dirname, 'contact.html'),

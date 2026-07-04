@@ -15,7 +15,7 @@ function Layout({ children }) {
             <img className="sas-brand-logo" src={hldiLogoUrl} alt="Alpha Zone Labs logo" />
             <span className="sas-brand-copy">
               <span className="sas-brand-label">Alpha Zone Labs</span>
-              <span className="sas-brand-subtext">Digital Presence Analyzer</span>
+              <span className="sas-brand-subtext">Site Analysis System</span>
             </span>
           </Link>
           <nav className="sas-nav" aria-label="Primary">

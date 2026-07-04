@@ -1,28 +1,23 @@
-# HLDesignedIt
+# Alpha Zone Labs
 
-> Websites, automation, apps, and digital systems for small businesses that need clearer messaging and more inquiries.
+> Websites, automation, apps, and digital systems for businesses that need clearer customer paths and smoother operations.
 
 ## Business identity
 
-- Name: HLDesignedIt
-- Former name: HL Design Edit / Harold Ligon Design & Edit
-- URL: https://hldesignedit.com/
-- Email: info@hldesignedit.com
+- Name: Alpha Zone Labs
+- URL: https://alphazonelabs.com/
+- Email: info@alphazonelabs.com
 - Founder: Harold Ligon
-- Positioning: Website design and practical digital systems for small businesses
+- Positioning: Practical digital solutions for websites, workflows, and business systems
+
 ## Services
 
-Alpha Zone Labs provides:
+Alpha Zone Labs helps businesses analyze what is not working, discuss the best improvements, and move forward with practical digital solutions.
 
-- Websites and online presence setup
-- Website redesigns, landing pages, local SEO, AI-ready content structure, and conversion cleanup
+- Websites, redesigns, landing pages, local SEO, AI-ready content structure, and conversion cleanup
 - Business automation using connected forms, spreadsheets, reminders, email workflows, and follow-up systems
 - Custom apps, dashboards, portals, registration tools, admin panels, and lightweight business tools
 - Digital workflow consulting, tech stack cleanup, launch planning, and process mapping
-
-## Analyzer
-
-The Digital Presence Analyzer is the renamed Alpha Zone Labs version of the website analyzer. It reviews a current website for clarity, trust signals, mobile usability, search readiness, AI-readiness, and lead flow opportunities.
 
 ## Best fit
 
