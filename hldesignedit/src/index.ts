@@ -55,3 +55,5 @@ app.post("/api/sas/reports", sasReportSave);
 // Export the Hono app
 export default app;
 export { SasStoreCurrent };
+// Re-export a stable class name expected by existing Durable Object instances
+export { SasStoreCurrent as SasStore };
