@@ -1,9 +1,9 @@
 import hldiLogoUrl from '../hldiLogo.png?url';
 
 const brand = {
-  name: 'HLDesignedIt',
-  domain: 'https://hldesignedit.com',
-  email: 'info@hldesignedit.com',
+  name: 'Alpha Zone Labs',
+  domain: 'https://alphazonelabs.com',
+  email: 'info@alphazonelabs.com',
 };
 
 const pagePaths = {
@@ -133,7 +133,7 @@ const pages = {
           <div class="hero-copy">
             <p class="eyebrow">Digital systems for businesses ready to work smarter</p>
             <h1>Websites, automation, apps, and digital tools built around how your business works.</h1>
-            <p class="hero-lead">HLDesignedIt creates clear, credible websites and practical digital systems for small businesses that need more inquiries.</p>
+            <p class="hero-lead">Alpha Zone Labs creates practical digital solutions for businesses that need a stronger online presence, cleaner workflows, better customer paths, and systems that save time.</p>
             <div class="hero-actions">
               <a href="${pagePaths.contact}" class="cta-btn primary">Start a Project</a>
               <a href="${pagePaths.analyzer}" class="cta-btn secondary">Analyze My Website</a>
