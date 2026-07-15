@@ -163,15 +163,15 @@ main section > *,
   justify-content: space-between;
   align-items: center;
   gap: 1.5rem;
-  min-height: 112px;
+  min-height: 148px;
   overflow: visible;
 }
 
 .header-logo__link {
   display: block;
-  width: 118px;
+  width: 156px;
   height: auto;
-  flex: 0 0 118px;
+  flex: 0 0 156px;
   padding: 0;
   overflow: visible;
   line-height: 0;
@@ -1170,9 +1170,9 @@ main section > *,
   }
 
   .header-logo__link {
-    width: 92px;
+    width: 118px;
     height: auto;
-    flex-basis: 92px;
+    flex-basis: 118px;
     padding: 0;
   }
 
@@ -1203,9 +1203,9 @@ main section > *,
   }
 
   .header-logo__link {
-    width: 78px;
+    width: 96px;
     height: auto;
-    flex-basis: 78px;
+    flex-basis: 96px;
     padding: 0;
   }
 
