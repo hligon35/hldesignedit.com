@@ -1,0 +1,24 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "alphazonelabs",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-01-28",
+	"workers_dev": true,
+	"observability": { "enabled": true },
+	"vars": {
+		"FORMS_TO_EMAIL": "info@alphazonelabs.com",
+		"FORMS_DISPLAY_TO_EMAIL": "info@alphazonelabs.com",
+		"FORMS_FROM_EMAIL": "noreply@alphazonelabs.com",
+		"ALLOWED_ORIGINS": "https://alphazonelabs.com,https://www.alphazonelabs.com,http://localhost:5173,http://127.0.0.1:5173,https://hligon35.github.io"
+	},
+	"send_email": [
+		{
+			"name": "EMAIL",
+			"destination_address": "info@alphazonelabs.com"
+		}
+	]
+}

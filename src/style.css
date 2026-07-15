@@ -1,14 +1,14 @@
 :root {
-  --primary: #c2410c;
-  --primary-dark: #9a3412;
-  --primary-soft: #ffedd5;
+  --primary: #c1121f;
+  --primary-dark: #7f0010;
+  --primary-soft: #fff1cc;
   --ink: #171717;
   --ink-soft: #404040;
   --muted: #6b7280;
   --border: #e7e5e4;
-  --surface: #fffdf8;
-  --surface-strong: #fff7ed;
-  --surface-dark: #1c1917;
+  --surface: #fffdf7;
+  --surface-strong: #fff4dd;
+  --surface-dark: #111111;
   --white: #ffffff;
   --success: #166534;
   --shadow-sm: 0 10px 30px rgba(28, 25, 23, 0.06);
@@ -38,8 +38,8 @@ body {
   font-family: var(--font-sans);
   color: var(--ink);
   background:
-    radial-gradient(circle at top left, rgba(194, 65, 12, 0.1), transparent 30%),
-    linear-gradient(180deg, #fffdf8 0%, #fffaf2 42%, #ffffff 100%);
+    radial-gradient(circle at top left, rgba(193, 18, 31, 0.1), transparent 30%),
+    linear-gradient(180deg, #fffdf7 0%, #fff9ec 42%, #ffffff 100%);
   line-height: 1.6;
   overflow-x: hidden;
 }
@@ -136,7 +136,7 @@ main section > *,
 }
 
 .partner-banner__link {
-  color: #fdba74;
+  color: #e6b84a;
   font-weight: 700;
 }
 
@@ -151,7 +151,7 @@ main section > *,
 }
 
 .site-header.is-scrolled {
-  background: rgba(255, 250, 242, 0.92);
+  background: rgba(255, 249, 236, 0.92);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(231, 229, 228, 0.9);
@@ -233,7 +233,7 @@ main section > *,
 .nav-cta {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: var(--white);
-  box-shadow: 0 14px 32px rgba(194, 65, 12, 0.24);
+  box-shadow: 0 14px 32px rgba(193, 18, 31, 0.24);
 }
 
 .cta-btn.primary:hover,
@@ -241,7 +241,7 @@ main section > *,
 .nav-cta:hover {
   transform: translateY(-2px);
   color: var(--white);
-  box-shadow: 0 18px 40px rgba(194, 65, 12, 0.32);
+  box-shadow: 0 18px 40px rgba(193, 18, 31, 0.32);
 }
 
 .nav-cta--secondary {
@@ -253,7 +253,7 @@ main section > *,
 
 .nav-cta--secondary:hover {
   color: var(--ink);
-  border-color: rgba(194, 65, 12, 0.28);
+  border-color: rgba(193, 18, 31, 0.28);
   box-shadow: var(--shadow-sm);
 }
 
@@ -267,7 +267,7 @@ main section > *,
 .cta-btn.secondary:hover,
 .btn-secondary:hover {
   transform: translateY(-2px);
-  border-color: rgba(194, 65, 12, 0.28);
+  border-color: rgba(193, 18, 31, 0.28);
   color: var(--ink);
 }
 
@@ -494,7 +494,7 @@ main section > *,
 
 .user-path-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(194, 65, 12, 0.26);
+  border-color: rgba(193, 18, 31, 0.26);
   box-shadow: var(--shadow-md);
 }
 
@@ -834,7 +834,7 @@ main section > *,
 }
 
 .portfolio-card.featured {
-  border-color: rgba(194, 65, 12, 0.4);
+  border-color: rgba(193, 18, 31, 0.4);
   box-shadow: var(--shadow-md);
 }
 
@@ -942,11 +942,11 @@ main section > *,
 
 .request-path-card:hover {
   transform: translateY(-2px);
-  border-color: rgba(194, 65, 12, 0.28);
+  border-color: rgba(193, 18, 31, 0.28);
 }
 
 .request-path-card.is-selected {
-  border-color: rgba(194, 65, 12, 0.44);
+  border-color: rgba(193, 18, 31, 0.44);
   background: rgba(255, 237, 213, 0.62);
   box-shadow: var(--shadow-md);
 }
@@ -1018,8 +1018,8 @@ main section > *,
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: rgba(194, 65, 12, 0.45);
-  box-shadow: 0 0 0 4px rgba(194, 65, 12, 0.1);
+  border-color: rgba(193, 18, 31, 0.45);
+  box-shadow: 0 0 0 4px rgba(193, 18, 31, 0.1);
 }
 
 .form-textarea {
@@ -1063,7 +1063,7 @@ main section > *,
   display: flex;
   justify-content: space-between;
   gap: 1.5rem;
-  background: linear-gradient(135deg, rgba(194, 65, 12, 0.22), rgba(255, 255, 255, 0.08));
+  background: linear-gradient(135deg, rgba(193, 18, 31, 0.22), rgba(255, 255, 255, 0.08));
   border-color: rgba(255, 255, 255, 0.08);
   box-shadow: none;
 }
@@ -1123,7 +1123,7 @@ main section > *,
 
 .footer-backtotop,
 .footer-partner a {
-  color: #fdba74;
+  color: #e6b84a;
   font-weight: 700;
 }
 
@@ -1180,7 +1180,7 @@ main section > *,
     top: calc(100% + 0.5rem);
     right: 1.25rem;
     width: min(320px, calc(100vw - 2.5rem));
-    background: rgba(255, 250, 242, 0.98);
+    background: rgba(255, 249, 236, 0.98);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(231, 229, 228, 0.96);
