@@ -38,4 +38,4 @@ Disallow: /
 # Content usage signal for crawlers that understand Cloudflare-style content signals.
 Content-Signal: search=yes, ai-input=yes, ai-train=no
 
-Sitemap: https://hldesignedit.com/sitemap.xml
+Sitemap: https://alphazonelabs.com/sitemap.xml
