@@ -12,10 +12,6 @@
   top: 0;
 }
 
-.header-logo {
-  top: 0.4rem;
-}
-
 .hero-section {
   padding-top: 7.25rem;
   min-height: auto;
@@ -121,10 +117,6 @@
     top: 0;
   }
 
-  .header-logo {
-    top: 0.45rem;
-  }
-
   .hero-section,
   .page-hero {
     padding-top: 7rem;
@@ -178,10 +170,6 @@
   .hero-section,
   .page-hero {
     padding-top: 6.75rem;
-  }
-
-  .header-logo__img {
-    height: 54px;
   }
 
   .site-header {
