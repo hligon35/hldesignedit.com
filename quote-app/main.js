@@ -1,6 +1,6 @@
 import './style.css';
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwu8RTO67NwtSrF9mBIAdKpffNgokt9KDYGGLW7kwfFHTSjI4UBRwcxE9uO-H3PopR01A/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2DyI3R8U8ah5GWkYyiy4kz80VC9dtjtvBFkO3DRmAJpGGKAy_IrJ30PvL5e2Wf229rw/exec';
 
 const platforms = {
   glossgenius: { label: 'GlossGenius', features: ['Online booking','Appointment calendar','Client records','Deposits','Card payments','Appointment reminders','Forms and waivers','Cancellation and no-show fees','Gift cards','Marketing messages','Reviews','Business reporting'] },
