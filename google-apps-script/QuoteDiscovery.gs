@@ -1,5 +1,6 @@
 const CONFIG = {
-  SHEET_NAME: 'Quote Discovery Responses',
+  SHEET_ID: '1_BCjr6r1YlKRZmiPh0Qc6Xb2cqWErs4JahrvyzWORrw',
+  SHEET_NAME: 'Discovery Responses',
   OWNER_EMAIL: 'hligon@alphazonelabs.com',
   SENDER_NAME: 'Alpha Zone Labs',
   REPLY_TO: 'hligon@alphazonelabs.com',
@@ -27,8 +28,53 @@ function doPost(e) {
   }
 }
 
+function testDoPost() {
+  const testSubmission = {
+    submittedAt: new Date().toISOString(),
+    contact: {
+      businessName: 'Test Business',
+      contactName: 'Test Client',
+      contactEmail: 'hligon@getsparqd.com'
+    },
+    selectedPlatforms: ['Google Workspace', 'QuickBooks'],
+    platformResponses: {
+      adaptiveDiscovery: {
+        features: ['Lead intake', 'Payments', 'Reporting'],
+        cost: '$50-$100',
+        future: 'Evaluate each platform and recommend the best path'
+      }
+    },
+    goals: [
+      'Project path: Build It Better',
+      'Industry: Professional and local services',
+      'Business type: Consulting',
+      'Team size: 2-5 employees',
+      'Required integrations: Accounting, CRM, Calendar',
+      'Migration: Customer records (Under 100)',
+      'Brand readiness: Brand is complete with logo and guidelines',
+      'Sensitive data: No sensitive information',
+      'Compliance: No known requirements',
+      'Support needs: Hosting, Maintenance and security updates'
+    ],
+    customerFeatures: ['Request a consultation', 'Pay invoices or deposits'],
+    ownerFeatures: ['Manage leads and contacts', 'Create proposals and estimates'],
+    transition: 'Evaluate each platform and recommend the best path',
+    monthlyBudget: '$51-$100',
+    projectBudget: '$2,501-$5,000',
+    timeline: 'Within 60-90 days',
+    success: 'Less manual work',
+    source: 'Apps Script manual test'
+  };
+
+  return doPost({
+    parameter: {
+      payload: JSON.stringify(testSubmission)
+    }
+  });
+}
+
 function getOrCreateSheet_() {
-  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  const spreadsheet = SpreadsheetApp.openById(CONFIG.SHEET_ID);
   let sheet = spreadsheet.getSheetByName(CONFIG.SHEET_NAME);
 
   if (!sheet) sheet = spreadsheet.insertSheet(CONFIG.SHEET_NAME);
@@ -214,9 +260,11 @@ function goalRow_(line) {
 
 function getLogoBlob_() {
   try {
-    return UrlFetchApp.fetch(CONFIG.LOGO_URL, { muteHttpExceptions: true })
-      .getBlob()
-      .setName('alpha-zone-labs-logo.png');
+    const response = UrlFetchApp.fetch(CONFIG.LOGO_URL, { muteHttpExceptions: true });
+    if (response.getResponseCode() < 200 || response.getResponseCode() >= 300) {
+      throw new Error('Logo request returned HTTP ' + response.getResponseCode());
+    }
+    return response.getBlob().setName('alpha-zone-labs-logo.png');
   } catch (error) {
     console.error('Logo could not be loaded: ' + error);
     return null;
