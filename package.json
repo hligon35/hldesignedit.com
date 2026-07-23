@@ -6,10 +6,13 @@
   "scripts": {
     "dev": "vite",
     "dev:quote": "vite --config vite.quote.config.js",
+    "dev:review": "vite --config vite.review.config.js",
     "build": "vite build",
     "build:quote": "vite build --config vite.quote.config.js",
+    "build:review": "vite build --config vite.review.config.js",
     "preview": "vite preview",
-    "preview:quote": "vite preview --config vite.quote.config.js"
+    "preview:quote": "vite preview --config vite.quote.config.js",
+    "preview:review": "vite preview --config vite.review.config.js"
   },
   "devDependencies": {
     "sharp": "^0.34.5",
