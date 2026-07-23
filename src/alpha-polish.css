@@ -12,17 +12,13 @@
   top: 0;
 }
 
-.header-logo {
-  top: 0.4rem;
-}
-
 .hero-section {
-  padding-top: 7.25rem;
+  padding-top: 10rem;
   min-height: auto;
 }
 
 .page-hero {
-  padding-top: 8rem;
+  padding-top: 10.5rem;
 }
 
 .hero-copy {
@@ -73,10 +69,6 @@
   padding: clamp(1.15rem, 2vw, 1.65rem);
 }
 
-.alpha-analyzer-strip {
-  background: linear-gradient(135deg, rgba(255, 237, 213, 0.65), rgba(255, 255, 255, 0.9));
-}
-
 .footer {
   padding-top: 2rem;
 }
@@ -125,13 +117,9 @@
     top: 0;
   }
 
-  .header-logo {
-    top: 0.45rem;
-  }
-
   .hero-section,
   .page-hero {
-    padding-top: 7rem;
+    padding-top: 9rem;
   }
 
   .hero-shell,
@@ -181,11 +169,7 @@
 
   .hero-section,
   .page-hero {
-    padding-top: 6.75rem;
-  }
-
-  .header-logo__img {
-    height: 54px;
+    padding-top: 8.5rem;
   }
 
   .site-header {
