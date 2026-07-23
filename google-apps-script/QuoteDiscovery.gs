@@ -3,11 +3,12 @@ const CONFIG = {
   OWNER_EMAIL: 'hligon@alphazonelabs.com',
   SENDER_NAME: 'Alpha Zone Labs',
   REPLY_TO: 'hligon@alphazonelabs.com',
+  LOGO_URL: 'https://alphazonelabs.com/alpha-zone-labs-logo.png'
 };
 
 function doPost(e) {
   try {
-    const data = JSON.parse((e.parameter && e.parameter.payload) || '{}');
+    const data = JSON.parse((e && e.parameter && e.parameter.payload) || '{}');
     validateSubmission_(data);
 
     const sheet = getOrCreateSheet_();
@@ -15,18 +16,14 @@ function doPost(e) {
     sendOwnerEmail_(data);
     sendClientEmail_(data);
 
-    return HtmlService.createHtmlOutput(
-      '<!doctype html><html><body><script>' +
-      'window.parent.postMessage({type:"ALPHA_QUOTE_SUCCESS"},"*");' +
-      '</script></body></html>'
-    );
+    return ContentService
+      .createTextOutput(JSON.stringify({ ok: true }))
+      .setMimeType(ContentService.MimeType.JSON);
   } catch (error) {
     console.error(error);
-    return HtmlService.createHtmlOutput(
-      '<!doctype html><html><body><script>' +
-      'window.parent.postMessage({type:"ALPHA_QUOTE_ERROR"},"*");' +
-      '</script></body></html>'
-    );
+    return ContentService
+      .createTextOutput(JSON.stringify({ ok: false, error: String(error) }))
+      .setMimeType(ContentService.MimeType.JSON);
   }
 }
 
@@ -34,9 +31,7 @@ function getOrCreateSheet_() {
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   let sheet = spreadsheet.getSheetByName(CONFIG.SHEET_NAME);
 
-  if (!sheet) {
-    sheet = spreadsheet.insertSheet(CONFIG.SHEET_NAME);
-  }
+  if (!sheet) sheet = spreadsheet.insertSheet(CONFIG.SHEET_NAME);
 
   const headers = [
     'Submitted At', 'Business Name', 'Contact Name', 'Email',
@@ -59,14 +54,12 @@ function getOrCreateSheet_() {
 
 function appendSubmission_(sheet, data) {
   const platformDetails = Object.entries(data.platformResponses || {})
-    .map(([key, response]) => {
-      return [
-        key,
-        'Features: ' + (response.features || []).join(', '),
-        'Cost: ' + (response.cost || ''),
-        'Future: ' + (response.future || '')
-      ].join(' | ');
-    })
+    .map(([key, response]) => [
+      key,
+      'Features: ' + (response.features || []).join(', '),
+      'Cost: ' + (response.cost || ''),
+      'Future: ' + (response.future || '')
+    ].join(' | '))
     .join('\n');
 
   sheet.appendRow([
@@ -76,7 +69,7 @@ function appendSubmission_(sheet, data) {
     data.contact.contactEmail,
     (data.selectedPlatforms || []).join(', '),
     platformDetails,
-    (data.goals || []).join(', '),
+    (data.goals || []).join('\n'),
     (data.customerFeatures || []).join(', '),
     (data.ownerFeatures || []).join(', '),
     data.transition || '',
@@ -88,101 +81,152 @@ function appendSubmission_(sheet, data) {
   ]);
 
   sheet.autoResizeColumns(1, 15);
+  sheet.getRange(sheet.getLastRow(), 1, 1, 15).setWrap(true).setVerticalAlignment('top');
 }
 
 function sendOwnerEmail_(data) {
-  const subject = 'New quote discovery: ' + data.contact.businessName;
-  const htmlBody = ownerTemplate_(data);
-
-  MailApp.sendEmail({
+  const logoBlob = getLogoBlob_();
+  const options = {
     to: CONFIG.OWNER_EMAIL,
-    subject,
-    htmlBody,
+    subject: 'New quote discovery: ' + data.contact.businessName,
+    htmlBody: ownerTemplate_(data, Boolean(logoBlob)),
     name: CONFIG.SENDER_NAME,
-    replyTo: data.contact.contactEmail,
-  });
+    replyTo: data.contact.contactEmail
+  };
+  if (logoBlob) options.inlineImages = { alphaZoneLogo: logoBlob };
+  MailApp.sendEmail(options);
 }
 
 function sendClientEmail_(data) {
-  const subject = 'We received your Alpha Zone Labs request';
-  const htmlBody = clientTemplate_(data);
-
-  MailApp.sendEmail({
+  const logoBlob = getLogoBlob_();
+  const options = {
     to: data.contact.contactEmail,
-    subject,
-    htmlBody,
+    subject: 'We received your Alpha Zone Labs request',
+    htmlBody: clientTemplate_(data, Boolean(logoBlob)),
     name: CONFIG.SENDER_NAME,
-    replyTo: CONFIG.REPLY_TO,
-  });
+    replyTo: CONFIG.REPLY_TO
+  };
+  if (logoBlob) options.inlineImages = { alphaZoneLogo: logoBlob };
+  MailApp.sendEmail(options);
 }
 
-function ownerTemplate_(data) {
+function ownerTemplate_(data, hasInlineLogo) {
+  const overview = [
+    labeledRow_('Business', data.contact.businessName),
+    labeledRow_('Contact', data.contact.contactName),
+    labeledRow_('Email', data.contact.contactEmail),
+    labeledRow_('Project path', data.transition || ''),
+    labeledRow_('Project budget', data.projectBudget || ''),
+    labeledRow_('Monthly target', data.monthlyBudget || ''),
+    labeledRow_('Timeline', data.timeline || ''),
+    labeledRow_('Success priority', data.success || '')
+  ].join('');
+
+  const discoveryRows = (data.goals || []).map(goalRow_).join('');
+
+  const featureRows = [
+    labeledRow_('Customer capabilities', (data.customerFeatures || []).join(', ')),
+    labeledRow_('Owner and team capabilities', (data.ownerFeatures || []).join(', ')),
+    labeledRow_('Current platforms', (data.selectedPlatforms || []).join(', '))
+  ].join('');
+
   const platformRows = Object.entries(data.platformResponses || {})
-    .map(([platform, response]) => row_(platform, [
+    .map(([platform, response]) => labeledRow_(platform, [
       'Features: ' + (response.features || []).join(', '),
       'Cost: ' + (response.cost || ''),
-      'Preference: ' + (response.future || '')
-    ].join('<br>')))
+      'Direction: ' + (response.future || '')
+    ].join('\n')))
     .join('');
 
   return emailShell_(
     'New discovery submission',
-    'A new client completed the Alpha Zone Labs quote discovery form.',
-    row_('Business', data.contact.businessName) +
-    row_('Contact', data.contact.contactName) +
-    row_('Email', data.contact.contactEmail) +
-    row_('Goals', (data.goals || []).join(', ')) +
-    row_('Customer features', (data.customerFeatures || []).join(', ')) +
-    row_('Owner features', (data.ownerFeatures || []).join(', ')) +
-    row_('Transition', data.transition || '') +
-    row_('Monthly target', data.monthlyBudget || '') +
-    row_('Project budget', data.projectBudget || '') +
-    row_('Timeline', data.timeline || '') +
-    row_('Success priority', data.success || '') +
-    platformRows
+    'A prospective client completed the Alpha Zone Labs adaptive quote and discovery form.',
+    section_('Project overview', overview) +
+    section_('Discovery details', discoveryRows) +
+    section_('Features and platforms', featureRows + platformRows),
+    hasInlineLogo
   );
 }
 
-function clientTemplate_(data) {
+function clientTemplate_(data, hasInlineLogo) {
   return emailShell_(
     'Thank you, ' + escapeHtml_(data.contact.contactName) + '.',
-    'We received your business platform and custom system discovery form for <strong>' +
-      escapeHtml_(data.contact.businessName) + '</strong>.',
-    '<div style="padding:18px;border-left:4px solid #c8a95b;background:#f7f2ff;border-radius:0 12px 12px 0;">' +
-      '<strong>What happens next?</strong>' +
-      '<p style="margin:8px 0 0;line-height:1.6;color:#555;">Someone from our team will review your current platforms, priorities, budget, and goals. We will get back with you with the recommended next step.</p>' +
+    'We received your project discovery form for <strong>' + escapeHtml_(data.contact.businessName) + '</strong>.',
+    '<div style="padding:20px;border:1px solid #f1d9dc;border-left:5px solid #c1121f;background:#fffdf7;border-radius:12px;">' +
+      '<div style="font-size:16px;font-weight:800;color:#171717;">What happens next?</div>' +
+      '<p style="margin:9px 0 0;line-height:1.7;color:#404040;">We will review your business type, current setup, required features, integrations, budget, timing, and operational needs. A member of the Alpha Zone Labs team will follow up with the recommended next step.</p>' +
     '</div>' +
-    '<p style="margin:24px 0 0;color:#666;line-height:1.6;">You do not need to submit the form again.</p>'
+    '<p style="margin:24px 0 0;color:#6b7280;line-height:1.7;text-align:center;">You do not need to submit the form again.</p>',
+    hasInlineLogo
   );
 }
 
-function emailShell_(title, intro, content) {
-  return '<!doctype html><html><body style="margin:0;background:#f4f1f8;font-family:Arial,Helvetica,sans-serif;color:#222;">' +
-    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:24px 12px;background:#f4f1f8;"><tr><td align="center">' +
-    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:680px;background:#fff;border:1px solid #e7dff0;border-radius:20px;overflow:hidden;">' +
-    '<tr><td style="padding:30px;background:linear-gradient(135deg,#111111,#4c1d95);color:#fff;">' +
-    '<div style="color:#c8a95b;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Alpha Zone Labs</div>' +
-    '<h1 style="margin:0;font-size:30px;line-height:1.15;">' + title + '</h1></td></tr>' +
-    '<tr><td style="padding:30px;">' +
-    '<p style="margin:0 0 22px;font-size:16px;line-height:1.7;">' + intro + '</p>' + content +
+function emailShell_(title, intro, content, hasInlineLogo) {
+  const logo = hasInlineLogo
+    ? '<img src="cid:alphaZoneLogo" width="72" alt="Alpha Zone Labs" style="display:block;width:72px;max-width:72px;height:auto;border:0;">'
+    : '<div style="font-size:16px;font-weight:900;letter-spacing:.08em;color:#ffffff;">AZL</div>';
+
+  return '<!doctype html><html><body style="margin:0;background:#f6f2e8;font-family:Arial,Helvetica,sans-serif;color:#171717;">' +
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%;background:#f6f2e8;padding:24px 12px;"><tr><td align="center">' +
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%;max-width:700px;background:#ffffff;border:1px solid #e7e5e4;border-radius:18px;overflow:hidden;">' +
+    '<tr><td style="background:#111111;padding:24px 22px;">' +
+      '<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>' +
+        '<td width="88" valign="middle" align="left">' + logo + '</td>' +
+        '<td valign="middle" align="center" style="color:#ffffff;text-align:center;">' +
+          '<div style="color:#fff4dd;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Alpha Zone Labs</div>' +
+          '<h1 style="margin:0;font-size:28px;line-height:1.2;color:#ffffff;">' + title + '</h1>' +
+        '</td>' +
+        '<td width="88">&nbsp;</td>' +
+      '</tr></table>' +
     '</td></tr>' +
-    '<tr><td style="padding:20px 30px;border-top:1px solid #eee;background:#fafafa;color:#777;font-size:12px;line-height:1.6;">' +
-    'Alpha Zone Labs<br>Websites, AI, automation, software, and digital solutions.' +
+    '<tr><td style="padding:30px;">' +
+      '<p style="margin:0 0 24px;font-size:16px;line-height:1.7;color:#404040;text-align:center;">' + intro + '</p>' + content +
+    '</td></tr>' +
+    '<tr><td align="center" style="padding:22px 30px;border-top:4px solid #c1121f;background:#fff4dd;color:#404040;font-size:12px;line-height:1.7;text-align:center;">' +
+      '<strong style="color:#171717;">Alpha Zone Labs</strong><br>' +
+      'Websites, AI, automation, software, and digital solutions.<br>' +
+      '<a href="https://alphazonelabs.com" style="color:#c1121f;font-weight:700;text-decoration:none;">alphazonelabs.com</a>' +
     '</td></tr></table></td></tr></table></body></html>';
 }
 
-function row_(label, value) {
-  return '<div style="padding:14px 0;border-bottom:1px solid #eee;">' +
-    '<div style="font-size:12px;font-weight:700;color:#6d28d9;text-transform:uppercase;letter-spacing:1px;">' + escapeHtml_(label) + '</div>' +
-    '<div style="margin-top:6px;line-height:1.6;color:#333;">' + value + '</div>' +
-    '</div>';
+function section_(title, rows) {
+  if (!rows) return '';
+  return '<div style="margin:0 0 26px;">' +
+    '<div style="padding:10px 14px;background:#111111;border-left:5px solid #c1121f;color:#ffffff;font-size:15px;font-weight:800;border-radius:8px 8px 0 0;">' + escapeHtml_(title) + '</div>' +
+    '<div style="padding:0 14px;border:1px solid #e7e5e4;border-top:0;border-radius:0 0 8px 8px;background:#fffdf7;">' + rows + '</div>' +
+  '</div>';
+}
+
+function labeledRow_(label, value) {
+  const safeValue = escapeHtml_(value || 'Not provided').replace(/\n/g, '<br>');
+  return '<div style="padding:13px 0;border-bottom:1px solid #e7e5e4;line-height:1.65;">' +
+    '<strong style="display:inline;color:#171717;">' + escapeHtml_(label) + ':</strong> ' +
+    '<span style="color:#404040;">' + safeValue + '</span>' +
+  '</div>';
+}
+
+function goalRow_(line) {
+  const text = String(line || '');
+  const separator = text.indexOf(':');
+  if (separator < 1) return labeledRow_('Detail', text);
+  return labeledRow_(text.slice(0, separator), text.slice(separator + 1).trim());
+}
+
+function getLogoBlob_() {
+  try {
+    return UrlFetchApp.fetch(CONFIG.LOGO_URL, { muteHttpExceptions: true })
+      .getBlob()
+      .setName('alpha-zone-labs-logo.png');
+  } catch (error) {
+    console.error('Logo could not be loaded: ' + error);
+    return null;
+  }
 }
 
 function validateSubmission_(data) {
   if (!data.contact || !data.contact.businessName || !data.contact.contactName || !data.contact.contactEmail) {
     throw new Error('Missing required contact fields.');
   }
-
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.contact.contactEmail)) {
     throw new Error('Invalid email address.');
   }
