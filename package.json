@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:quote": "vite --config vite.quote.config.js",
     "build": "vite build",
-    "preview": "vite preview"
+    "build:quote": "vite build --config vite.quote.config.js",
+    "preview": "vite preview",
+    "preview:quote": "vite preview --config vite.quote.config.js"
   },
   "devDependencies": {
     "sharp": "^0.34.5",
