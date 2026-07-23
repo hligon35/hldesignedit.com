@@ -15,11 +15,18 @@
         <div><strong>Alpha Zone Labs</strong><span>New project discovery</span></div>
       </header>
       <form id="quoteForm" class="wizard-card" novalidate><div id="wizard"></div></form>
-      <section id="thankYou" class="wizard-card thank-you" hidden>
-        <div class="success-mark">✓</div><p class="eyebrow">Submission received</p><h1>Thank you.</h1>
-        <p>We sent a confirmation to your email. Someone from the Alpha Zone Labs team will review your new-project details and get back with you.</p>
-      </section>
     </main>
+
+    <div id="thankYou" class="thank-you-overlay" role="dialog" aria-modal="true" aria-labelledby="thankYouTitle" hidden>
+      <section class="thank-you-card">
+        <div class="success-mark" aria-hidden="true">✓</div>
+        <p class="eyebrow">Submission received</p>
+        <h1 id="thankYouTitle">Thank you.</h1>
+        <p>We sent a confirmation to your email. Someone from the Alpha Zone Labs team will review your new-project details and get back with you.</p>
+        <a class="button primary thank-you-close" href="https://alphazonelabs.com/">Close and return home</a>
+      </section>
+    </div>
+
     <footer id="wizardFooter" class="wizard-footer">
       <div class="footer-inner"><div class="progress-meta"><span id="stepLabel">Step 1</span><span id="progressLabel">0%</span></div><div class="progress-track"><div id="progressBar" class="progress-bar"></div></div><div class="button-row"><button id="backButton" class="button secondary" type="button">Back</button><button id="nextButton" class="button primary" type="button">Continue</button></div><p id="errorMessage" class="error-message" aria-live="polite"></p></div>
     </footer>
