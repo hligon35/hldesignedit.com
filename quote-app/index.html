@@ -21,14 +21,17 @@
       <form id="quoteForm" class="wizard-card" novalidate>
         <div id="wizard"></div>
       </form>
-
-      <section id="thankYou" class="wizard-card thank-you" hidden>
-        <div class="success-mark">✓</div>
-        <p class="eyebrow">Submission received</p>
-        <h1>Thank you.</h1>
-        <p>We sent a confirmation to your email. Someone from the Alpha Zone Labs team will review your responses and get back with you.</p>
-      </section>
     </main>
+
+    <div id="thankYou" class="thank-you-overlay" role="dialog" aria-modal="true" aria-labelledby="thankYouTitle" hidden>
+      <section class="thank-you-card">
+        <div class="success-mark" aria-hidden="true">✓</div>
+        <p class="eyebrow">Submission received</p>
+        <h1 id="thankYouTitle">Thank you.</h1>
+        <p>We sent a confirmation to your email. Someone from the Alpha Zone Labs team will review your responses and get back with you.</p>
+        <a class="button primary thank-you-close" href="https://alphazonelabs.com/">Close and return home</a>
+      </section>
+    </div>
 
     <footer id="wizardFooter" class="wizard-footer">
       <div class="footer-inner">
