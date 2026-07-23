@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f0f12" />
+    <meta name="description" content="Alpha Zone Labs business platform and custom web app discovery form." />
+    <title>Get a Quote | Alpha Zone Labs</title>
+    <link rel="icon" type="image/png" href="/alpha-zone-labs-logo.png" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="brand-bar">
+        <img src="/alpha-zone-labs-logo.png" alt="Alpha Zone Labs" class="brand-logo" />
+        <div>
+          <strong>Alpha Zone Labs</strong>
+          <span>Custom systems discovery</span>
+        </div>
+      </header>
+
+      <form id="quoteForm" class="wizard-card" novalidate>
+        <div id="wizard"></div>
+      </form>
+
+      <section id="thankYou" class="wizard-card thank-you" hidden>
+        <div class="success-mark">✓</div>
+        <p class="eyebrow">Submission received</p>
+        <h1>Thank you.</h1>
+        <p>We sent a confirmation to your email. Someone from the Alpha Zone Labs team will review your responses and get back with you.</p>
+      </section>
+    </main>
+
+    <footer id="wizardFooter" class="wizard-footer">
+      <div class="footer-inner">
+        <div class="progress-meta">
+          <span id="stepLabel">Step 1</span>
+          <span id="progressLabel">0%</span>
+        </div>
+        <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+        <div class="button-row">
+          <button id="backButton" class="button secondary" type="button">Back</button>
+          <button id="nextButton" class="button primary" type="button">Continue</button>
+        </div>
+        <p id="errorMessage" class="error-message" aria-live="polite"></p>
+      </div>
+    </footer>
+
+    <iframe name="quoteSubmissionFrame" id="quoteSubmissionFrame" hidden></iframe>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
