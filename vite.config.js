@@ -15,7 +15,6 @@ export default defineConfig({
         portfolio: resolve(__dirname, 'portfolio.html'),
         about: resolve(__dirname, 'about.html'),
         contact: resolve(__dirname, 'contact.html'),
-        quote: resolve(__dirname, 'quote.html'),
       },
     },
   },
