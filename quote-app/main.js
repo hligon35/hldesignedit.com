@@ -1,6 +1,6 @@
 import './style.css';
 
-const APPS_SCRIPT_URL = 'REPLACE_WITH_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwu8RTO67NwtSrF9mBIAdKpffNgokt9KDYGGLW7kwfFHTSjI4UBRwcxE9uO-H3PopR01A/exec';
 
 const platforms = {
   glossgenius: { label: 'GlossGenius', features: ['Online booking','Appointment calendar','Client records','Deposits','Card payments','Appointment reminders','Forms and waivers','Cancellation and no-show fees','Gift cards','Marketing messages','Reviews','Business reporting'] },
