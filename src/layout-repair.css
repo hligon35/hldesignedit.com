@@ -185,6 +185,72 @@ canvas {
   font-weight: 900;
 }
 
+/* Center lists, links, and actions inside every main-page content container. */
+main .user-path-card,
+main .service-card,
+main .detail-card,
+main .problem-card,
+main .process-card,
+main .about-point,
+main .hero-panel__card,
+main .basic-contact-card,
+main .portfolio-card__body,
+main .contact-benefit,
+main .cta-panel,
+main .section-actions,
+main .hero-actions {
+  text-align: center;
+}
+
+main ul,
+main ol {
+  justify-items: center;
+  text-align: center;
+}
+
+main li {
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+main .service-card li,
+main .detail-card li,
+main .hero-panel__list li {
+  padding-left: 0;
+}
+
+main .service-card li::before,
+main .detail-card li::before,
+main .hero-panel__list li::before {
+  position: static;
+  display: inline-block;
+  margin-right: 0.45rem;
+}
+
+main a:not(.portfolio-link),
+main button,
+main .cta-btn,
+main .text-link {
+  justify-content: center;
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+main .user-path-number,
+main .service-number,
+main .service-kicker,
+main .process-number,
+main .portfolio-label,
+main .eyebrow {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .hero-copy,
 .hero-panel,
 .about-copy,
