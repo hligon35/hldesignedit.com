@@ -15,9 +15,17 @@
     }
   ],
 
+  "d1_databases": [
+  {
+    "binding": "REVIEWS_DB",
+    "database_name": "azl-reviews",
+    "database_id": "b02d7c1f-de2a-4038-9147-5126ad6cbc5e"
+  }
+],
+
   "vars": {
     "GOOGLE_CLIENT_ID": "163925102971-unugq0eks4833r9t268tmo09ld1ooii9.apps.googleusercontent.com",
-    "ALLOWED_GOOGLE_EMAILS": "hligon@getsparqd.com, hligon35@gmail.com, hligon@alphazonelabs.com",
+    "ALLOWED_GOOGLE_EMAILS": "hligon@getsparqd.com, hligon35@gmail.com, hligon@alphazonelabs.com, alphazonelabsllc@gmail.com",
     "FORMS_TO_EMAIL": "info@alphazonelabs.com",
     "FORMS_DISPLAY_TO_EMAIL": "info@alphazonelabs.com",
     "FORMS_FROM_EMAIL": "noreply@alphazonelabs.com",
