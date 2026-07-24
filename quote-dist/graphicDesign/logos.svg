@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Logo gallery preview">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" rx="48" fill="url(#bg)"/>
+  <g opacity="0.22" fill="#fff">
+    <rect x="90" y="130" width="320" height="220" rx="24"/>
+    <rect x="440" y="130" width="320" height="220" rx="24"/>
+    <rect x="790" y="130" width="320" height="220" rx="24"/>
+    <rect x="90" y="380" width="320" height="220" rx="24"/>
+    <rect x="440" y="380" width="320" height="220" rx="24"/>
+    <rect x="790" y="380" width="320" height="220" rx="24"/>
+  </g>
+  <text x="90" y="600" font-family="Inter,Segoe UI,Roboto,Arial,sans-serif" font-size="56" fill="#ffffff" opacity="0.95">Logo & Brand Gallery</text>
+  <text x="90" y="642" font-family="Inter,Segoe UI,Roboto,Arial,sans-serif" font-size="28" fill="#ffffff" opacity="0.85">Design preview placeholder</text>
+</svg>
