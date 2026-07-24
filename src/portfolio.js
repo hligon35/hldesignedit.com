@@ -8,31 +8,14 @@ import { addPortfolioProducts } from './portfolio-products.js';
 
 renderPage('portfolio');
 addPortfolioProducts();
-initializePortfolioDetails();
+initializePortfolioHoverDetails();
 
-function initializePortfolioDetails() {
-  document.querySelectorAll('.page-work .portfolio-card').forEach((card, index) => {
+function initializePortfolioHoverDetails() {
+  document.querySelectorAll('.page-work .portfolio-card').forEach((card) => {
+    card.querySelector('.portfolio-card__toggle')?.remove();
+    card.setAttribute('tabindex', '0');
+
     const details = card.querySelector('.portfolio-card__details');
-    if (!details || card.querySelector('.portfolio-card__toggle')) return;
-
-    const detailsId = `portfolio-details-${index + 1}`;
-    details.id = detailsId;
-    details.setAttribute('aria-hidden', 'true');
-
-    const toggle = document.createElement('button');
-    toggle.type = 'button';
-    toggle.className = 'portfolio-card__toggle';
-    toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-controls', detailsId);
-    toggle.textContent = 'Show Details';
-
-    details.before(toggle);
-
-    toggle.addEventListener('click', () => {
-      const isOpen = details.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      details.setAttribute('aria-hidden', String(!isOpen));
-      toggle.textContent = isOpen ? 'Hide Details' : 'Show Details';
-    });
+    if (details) details.removeAttribute('aria-hidden');
   });
 }
