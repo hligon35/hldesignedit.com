@@ -1,0 +1,85 @@
+/* Final public-site spacing and expandable-service list adjustments. */
+
+main {
+  padding-bottom: clamp(3.5rem, 7vw, 6rem);
+}
+
+main > section:last-child,
+main > .cta-panel:last-child {
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.footer {
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.service-accordion-panel {
+  text-align: center;
+}
+
+.service-accordion-panel ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(3rem, 8vw, 7rem);
+  row-gap: 1rem;
+  width: min(760px, 100%);
+  margin: 1.75rem auto 0;
+  padding: 0;
+  list-style: none;
+  justify-items: center;
+}
+
+.service-accordion-panel li {
+  position: relative;
+  width: 100%;
+  max-width: 290px;
+  margin: 0;
+  padding-left: 1.25rem;
+  text-align: left;
+  line-height: 1.55;
+}
+
+.service-accordion-panel li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #c1121f;
+  font-weight: 900;
+}
+
+.service-accordion-panel li:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: min(290px, 100%);
+}
+
+.service-accordion-panel .cta-btn {
+  margin: 1.75rem auto 0;
+}
+
+@media (max-width: 640px) {
+  main {
+    padding-bottom: 3rem;
+  }
+
+  main > section:last-child,
+  main > .cta-panel:last-child,
+  .footer {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+  }
+
+  .service-accordion-panel ul {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.85rem;
+    width: min(340px, 100%);
+  }
+
+  .service-accordion-panel li,
+  .service-accordion-panel li:last-child:nth-child(odd) {
+    grid-column: auto;
+    width: 100%;
+    max-width: 320px;
+  }
+}
