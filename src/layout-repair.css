@@ -39,7 +39,6 @@ img, svg, video, canvas { display: block; max-width: 100%; }
   margin-right: auto;
 }
 
-/* Consistent grid behavior across every public page. */
 .alpha-path-grid,
 .user-path-grid,
 .services-grid,
@@ -74,7 +73,6 @@ img, svg, video, canvas { display: block; max-width: 100%; }
 .process-grid, .trust-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .best-fit-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 
-/* Unified card shell for all body cards. */
 .user-path-card,
 .service-card,
 .detail-card,
@@ -278,6 +276,140 @@ main .text-link {
 .hero-panel img { width: 100%; height: auto; object-fit: cover; }
 .footer-grid, .footer-cta, .footer-bottom { width: 100%; min-width: 0; }
 
+/* Services page accordion cards. */
+.service-accordion-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  align-items: start;
+}
+
+.service-accordion-card {
+  scroll-margin-top: 8.5rem;
+  border: 1px solid rgba(231, 229, 228, 0.96);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 12px 34px rgba(28, 25, 23, 0.08);
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.service-accordion-card:hover,
+.service-accordion-card.is-open {
+  border-color: rgba(193, 18, 31, 0.28);
+  box-shadow: 0 20px 48px rgba(28, 25, 23, 0.13);
+}
+
+.service-accordion-card.is-open { transform: translateY(-2px); }
+
+.service-accordion-trigger {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 1.5rem 0.8rem;
+  border: 0;
+  background: transparent;
+  color: #171717;
+  cursor: pointer;
+  text-align: left;
+}
+
+.service-accordion-heading {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.service-accordion-number {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.25rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  background: #fff1cc;
+  color: #7f0010;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.service-accordion-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.service-accordion-icon {
+  display: inline-flex;
+  flex: 0 0 2.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff1cc;
+  color: #7f0010;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.service-accordion-summary,
+.service-accordion-panel {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  text-align: center;
+}
+
+.service-accordion-summary { padding-bottom: 1.5rem; }
+.service-accordion-panel { padding-bottom: 1.5rem; border-top: 1px solid #e7e5e4; }
+.service-accordion-detail { margin-top: 1.25rem; line-height: 1.75; }
+.service-accordion-panel .cta-btn { margin-top: 1.25rem; }
+.service-accordion-panel[hidden] { display: none; }
+
+/* Homepage hero controls and proof alignment. */
+.page-home .hero-copy { text-align: center; }
+.page-home .hero-copy .eyebrow { margin-left: auto; margin-right: auto; }
+.page-home .hero-copy .hero-lead { margin-left: auto; margin-right: auto; }
+
+.hero-actions--home {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  width: min(440px, 100%);
+  margin: 2rem auto 0;
+}
+
+.hero-proof--home {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  width: min(660px, 100%);
+  margin: 1.5rem auto 0;
+  align-items: center;
+}
+
+.hero-proof--home a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  background: #fff1cc;
+  color: #7f0010;
+  font-weight: 700;
+  text-align: center;
+}
+
 @media (max-width: 1100px) {
   .services-grid,
   .process-grid,
@@ -356,8 +488,26 @@ main .text-link {
   .about-points,
   .trust-strip,
   .request-path-grid,
-  .best-fit-grid {
+  .best-fit-grid,
+  .service-accordion-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero-actions--home,
+  .hero-proof--home {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.85rem;
+  }
+
+  .service-accordion-trigger {
+    align-items: flex-start;
+    padding: 1.25rem 1.1rem 0.75rem;
+  }
+
+  .service-accordion-summary,
+  .service-accordion-panel {
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
   }
 
   .footer-grid { grid-template-columns: 1fr; }
