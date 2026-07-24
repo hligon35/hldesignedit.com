@@ -1,4 +1,4 @@
-/* Work-page gallery and collapsible project details. */
+/* Work-page gallery and hover-revealed project details. */
 .page-work .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -7,10 +7,20 @@
   margin-left: auto;
   margin-right: auto;
   align-items: stretch;
+  overflow: visible;
 }
 
 .page-work .portfolio-card {
+  position: relative;
   min-width: 0;
+  overflow: visible;
+  z-index: 1;
+}
+
+.page-work .portfolio-card:hover,
+.page-work .portfolio-card:focus-within,
+.page-work .portfolio-card:focus {
+  z-index: 20;
 }
 
 .page-work .portfolio-card picture {
@@ -34,6 +44,7 @@
 }
 
 .page-work .portfolio-card__body {
+  position: relative;
   padding: clamp(1.2rem, 2vw, 1.6rem);
 }
 
@@ -42,20 +53,34 @@
 }
 
 .page-work .portfolio-card__details {
+  position: absolute;
+  top: calc(100% - 0.5rem);
+  right: 1rem;
+  left: 1rem;
   display: grid;
   gap: 0.75rem;
-  width: 100%;
-  overflow: hidden;
-  max-height: 0;
+  width: auto;
   margin: 0;
+  padding: 1rem;
+  border: 1px solid rgba(20, 20, 20, 0.1);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 22px 50px rgba(20, 20, 20, 0.2);
   opacity: 0;
-  transition: max-height 0.45s ease, opacity 0.3s ease, margin 0.3s ease;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-0.4rem);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  z-index: 30;
 }
 
-.page-work .portfolio-card__details.is-open {
-  max-height: 900px;
-  margin-top: 0.25rem;
+.page-work .portfolio-card:hover .portfolio-card__details,
+.page-work .portfolio-card:focus-within .portfolio-card__details,
+.page-work .portfolio-card:focus .portfolio-card__details {
   opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .page-work .portfolio-card__details p {
@@ -63,21 +88,7 @@
 }
 
 .page-work .portfolio-card__toggle {
-  width: fit-content;
-  margin: 0 auto;
-  border: 0;
-  background: transparent;
-  color: #7f0010;
-  font: inherit;
-  font-weight: 800;
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 0.25rem;
-}
-
-.page-work .portfolio-card__toggle:hover,
-.page-work .portfolio-card__toggle:focus-visible {
-  color: #c1121f;
+  display: none !important;
 }
 
 .page-work .portfolio-card__button {
@@ -88,5 +99,20 @@
   .page-work .portfolio-grid {
     grid-template-columns: minmax(0, 1fr);
     width: min(100% - 1rem, 1180px);
+  }
+
+  .page-work .portfolio-card__details {
+    right: 0.75rem;
+    left: 0.75rem;
+  }
+}
+
+@media (hover: none) {
+  .page-work .portfolio-card__details {
+    top: auto;
+    right: auto;
+    bottom: 1rem;
+    left: 1rem;
+    width: calc(100% - 2rem);
   }
 }
