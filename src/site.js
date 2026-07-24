@@ -34,38 +34,50 @@ const contactRoutes = {
 
 const servicePillars = [
   {
+    id: 'websites',
     number: '01',
     title: 'Websites',
     copy: 'We review your current site or idea, identify what is unclear, then build pages that explain your offer, earn trust, and guide visitors toward calls, quotes, bookings, or signups.',
-    features: ['New websites', 'Redesigns', 'Landing pages', 'Local and AI-ready SEO'],
+    detail: 'Website projects can include strategy, information architecture, responsive design, development, content structure, contact and quote forms, analytics, launch support, and ongoing improvements. We focus on giving visitors a clear understanding of the business and an obvious next step on every screen size.',
+    features: ['New websites', 'Website redesigns', 'Landing pages', 'Mobile optimization', 'Local and AI-ready SEO', 'Forms and lead capture'],
     href: contactRoutes.website,
     cta: 'Start Website Project',
   },
   {
+    id: 'automation',
     number: '02',
     title: 'Automation',
     copy: 'We map the repetitive work behind your business, then connect forms, spreadsheets, emails, reminders, and follow-up so important steps happen without constant manual chasing.',
-    features: ['Lead follow-up', 'Registration flows', 'Email reminders', 'Make and Zapier workflows'],
+    detail: 'Automation work begins with the complete process, including what starts it, where information is stored, who needs to be notified, and what should happen next. We then build and test connected workflows that reduce duplicate entry, missed follow-up, inconsistent communication, and unnecessary administrative work.',
+    features: ['Lead follow-up', 'Registration flows', 'Email reminders', 'Make and Zapier workflows', 'Spreadsheet synchronization', 'Notifications and status updates'],
     href: contactRoutes.automation,
     cta: 'Automate a Workflow',
   },
   {
+    id: 'apps-tools',
     number: '03',
     title: 'Apps & Tools',
     copy: 'We build practical dashboards, portals, registration systems, and admin tools that organize information around the way your team already works.',
-    features: ['Dashboards', 'Client portals', 'Admin tools', 'Registration systems'],
+    detail: 'Custom tools are designed around a specific operational need rather than unnecessary features. Projects may include authenticated portals, internal dashboards, registration and check-in systems, client workspaces, searchable directories, reporting interfaces, or focused software that replaces scattered manual processes.',
+    features: ['Dashboards', 'Client portals', 'Admin tools', 'Registration systems', 'Internal databases', 'Custom workflow software'],
     href: contactRoutes.app,
     cta: 'Build a Tool',
   },
   {
+    id: 'strategy',
     number: '04',
     title: 'Strategy',
     copy: 'We help you decide what should be fixed first, what should be automated, and what digital pieces need to work together before you invest in a bigger build.',
-    features: ['Site review', 'Workflow mapping', 'Tech cleanup', 'Launch planning'],
+    detail: 'Strategy engagements clarify the current setup, the highest-impact problems, technical dependencies, user paths, and a realistic order of operations. The result is a focused plan that distinguishes immediate fixes from later improvements and reduces the risk of investing in disconnected tools or unnecessary development.',
+    features: ['Site review', 'Workflow mapping', 'Technology cleanup', 'Launch planning', 'Feature prioritization', 'Digital system roadmap'],
     href: contactRoutes.strategy,
     cta: 'Plan the System',
   },
 ];
+
+const serviceRoutes = Object.fromEntries(
+  servicePillars.map((item) => [item.id, `${pagePaths.services}#service-${item.id}`]),
+);
 
 const portfolioItems = [
   { type: 'website', label: 'Service website', title: 'Black Bridge Mindset', image: './projects/bbm.png', alt: 'Black Bridge Mindset website screenshot', problem: 'The offer needed to feel clear, credible, and easy to act on.', changed: 'Sharper messaging, stronger trust cues, and a more direct booking path.', impact: 'A stronger first impression and a cleaner path to qualified inquiries.', href: 'https://blackbridgemindset.com/' },
@@ -84,8 +96,8 @@ const pages = {
             <p class="eyebrow">Digital solutions for growing businesses</p>
             <h1>Build the system behind your business.</h1>
             <p class="hero-lead">Alpha Zone Labs helps businesses improve their websites, automate daily work, and build practical tools. We start by looking at what you already have, discuss what should improve, then move forward with the cleanest solution.</p>
-            <div class="hero-actions"><a href="${pagePaths.contact}" class="cta-btn primary">Start a Project</a><a href="${pagePaths.services}" class="cta-btn secondary">View Services</a></div>
-            <div class="hero-proof"><span>Websites</span><span>Automation</span><span>Apps & tools</span></div>
+            <div class="hero-actions hero-actions--home"><a href="${pagePaths.contact}" class="cta-btn primary">Start a Project</a><a href="${pagePaths.services}" class="cta-btn secondary">View Services</a></div>
+            <div class="hero-proof hero-proof--home"><a href="${serviceRoutes.websites}">Websites</a><a href="${serviceRoutes.automation}">Automation</a><a href="${serviceRoutes['apps-tools']}">Apps & tools</a></div>
           </div>
           <aside class="hero-panel" aria-label="What Alpha Zone Labs builds">
             <div class="hero-panel__card hero-panel__card--image"><img class="section-visual__image" src="${mediaPaths.hero}" alt="Website and digital system preview on desktop and mobile screens" loading="eager" decoding="async" /><p class="section-visual__caption">A better digital setup should look professional, explain the next step, and support the work that happens after someone reaches out.</p></div>
@@ -101,10 +113,10 @@ const pages = {
     `,
   },
   services: {
-    bodyClass: 'page-interior',
+    bodyClass: 'page-interior page-services',
     main: `
-      ${pageHero('services', 'Services', 'What we build.', 'Every service starts with a review of the goal, the current setup, and the gap between where the business is now and what needs to work better.')}
-      <section class="content-section"><div class="detail-grid detail-grid--services">${servicePillars.map(detailServiceCard).join('')}</div></section>
+      ${pageHero('services', 'Services', 'What we build.', 'Select a service to see the complete scope, common deliverables, and the next step for starting that type of project.')}
+      <section class="content-section services-catalog-section"><div class="service-accordion-grid">${servicePillars.map(expandableServiceCard).join('')}</div></section>
       <section class="insight-section">
         <div class="section-header"><p class="eyebrow">Our process</p><h2>Review. Discuss. Build.</h2><p class="section-subtitle">We do not jump straight into design or tools. First, we look at the website, workflow, customer path, or internal process. Then we talk through the improvements that matter most and build the solution that fits.</p></div>
         <div class="problem-grid"><article class="problem-card"><h3>Review</h3><p>We look at your site, forms, tools, customer journey, and manual steps to find where people get stuck or where your team loses time.</p></article><article class="problem-card"><h3>Discuss</h3><p>We walk through what should change, what can wait, and which fixes will create the clearest improvement for your business.</p></article><article class="problem-card"><h3>Build</h3><p>We create the website, automation, app, or connected workflow with a focus on usability, clarity, and long-term usefulness.</p></article><article class="problem-card"><h3>Launch</h3><p>We test the experience, tighten the details, and make sure the final system is ready for real customers and real work.</p></article></div>
@@ -152,7 +164,7 @@ function header(activeKey) {
 }
 
 function footer() {
-  return `<footer class="footer"><div class="footer-inner"><div class="footer-cta"><div class="footer-cta__text"><h3>Build a cleaner digital system.</h3><p>Websites, automation, and tools that help people take action and help your team keep up after they do.</p></div><div class="footer-cta__actions"><a href="${pagePaths.contact}" class="cta-btn primary">Start a Project</a><a href="${pagePaths.services}" class="cta-btn secondary">View Services</a></div></div><div class="footer-grid" aria-label="Footer navigation"><div class="footer-col"><h4>Company</h4><a href="${pagePaths.home}">Home</a><a href="${pagePaths.about}">About</a><a href="${pagePaths.contact}">Start a Project</a></div><div class="footer-col"><h4>Services</h4><a href="${contactRoutes.website}">Websites</a><a href="${contactRoutes.automation}">Automation</a><a href="${contactRoutes.app}">Apps & Tools</a><a href="${contactRoutes.strategy}">Strategy</a></div><div class="footer-col"><h4>Work</h4><a href="${pagePaths.portfolio}">Portfolio</a><a href="${pagePaths.services}">Services</a></div><div class="footer-col"><h4>Contact</h4><a href="mailto:${brand.email}">${brand.email}</a><a href="${brand.domain}">${brand.domain.replace('https://','')}</a></div></div><div class="footer-bottom"><span>© ${new Date().getFullYear()} ${brand.name}. All rights reserved.</span><span>Websites, automation, apps, and digital systems.</span></div></div></footer>`;
+  return `<footer class="footer"><div class="footer-inner"><div class="footer-cta"><div class="footer-cta__text"><h3>Build a cleaner digital system.</h3><p>Websites, automation, and tools that help people take action and help your team keep up after they do.</p></div><div class="footer-cta__actions"><a href="${pagePaths.contact}" class="cta-btn primary">Start a Project</a><a href="${pagePaths.services}" class="cta-btn secondary">View Services</a></div></div><div class="footer-grid" aria-label="Footer navigation"><div class="footer-col"><h4>Company</h4><a href="${pagePaths.home}">Home</a><a href="${pagePaths.about}">About</a><a href="${pagePaths.contact}">Start a Project</a></div><div class="footer-col"><h4>Services</h4><a href="${serviceRoutes.websites}">Websites</a><a href="${serviceRoutes.automation}">Automation</a><a href="${serviceRoutes['apps-tools']}">Apps & Tools</a><a href="${serviceRoutes.strategy}">Strategy</a></div><div class="footer-col"><h4>Work</h4><a href="${pagePaths.portfolio}">Portfolio</a><a href="${pagePaths.services}">Services</a></div><div class="footer-col"><h4>Contact</h4><a href="mailto:${brand.email}">${brand.email}</a><a href="${brand.domain}">${brand.domain.replace('https://','')}</a></div></div><div class="footer-bottom"><span>© ${new Date().getFullYear()} ${brand.name}. All rights reserved.</span><span>Websites, automation, apps, and digital systems.</span></div></div></footer>`;
 }
 
 function pageHero(page, eyebrow, title, text) {
@@ -182,15 +194,16 @@ function workPreviewSection() {
 }
 
 function solutionPathCard(item) {
-  return `<article class="user-path-card"><span class="user-path-number">${item.number}</span><h3>${item.title}</h3><p>${item.copy}</p><a href="${item.href}">${item.cta}</a></article>`;
+  return `<article class="user-path-card"><span class="user-path-number">${item.number}</span><h3>${item.title}</h3><p>${item.copy}</p><a href="${serviceRoutes[item.id]}">View ${item.title}</a></article>`;
 }
 
 function serviceCard(item) {
-  return `<article class="service-card"><span class="service-number">${item.number}</span><h3>${item.title}</h3><p>${item.copy}</p><ul>${item.features.map((feature) => `<li>${feature}</li>`).join('')}</ul><a href="${item.href}" class="text-link">${item.cta}</a></article>`;
+  return `<article class="service-card"><span class="service-number">${item.number}</span><h3>${item.title}</h3><p>${item.copy}</p><ul>${item.features.slice(0,4).map((feature) => `<li>${feature}</li>`).join('')}</ul><a href="${serviceRoutes[item.id]}" class="text-link">View ${item.title}</a></article>`;
 }
 
-function detailServiceCard(item) {
-  return `<article class="detail-card"><span class="service-number">${item.number}</span><h2>${item.title}</h2><p>${item.copy}</p><ul>${item.features.map((feature) => `<li>${feature}</li>`).join('')}</ul><a href="${item.href}" class="cta-btn secondary">${item.cta}</a></article>`;
+function expandableServiceCard(item) {
+  const panelId = `service-panel-${item.id}`;
+  return `<article class="service-accordion-card" id="service-${item.id}" data-service="${item.id}"><button class="service-accordion-trigger" type="button" aria-expanded="false" aria-controls="${panelId}"><span class="service-accordion-heading"><span class="service-accordion-number">${item.number}</span><span class="service-accordion-title">${item.title}</span></span><span class="service-accordion-icon" aria-hidden="true">+</span></button><div class="service-accordion-summary"><p>${item.copy}</p></div><div class="service-accordion-panel" id="${panelId}" hidden><p class="service-accordion-detail">${item.detail}</p><ul>${item.features.map((feature) => `<li>${feature}</li>`).join('')}</ul><a href="${item.href}" class="cta-btn primary">${item.cta}</a></div></article>`;
 }
 
 function portfolioCards(items, detailed) {
@@ -216,16 +229,50 @@ function initializeFeatures() {
     });
   }
 
-  document.querySelectorAll('.portfolio-filter').forEach((button) => {
+  document.querySelectorAll('.filter-btn, .portfolio-filter').forEach((button) => {
     button.addEventListener('click', () => {
       const filter = button.dataset.filter;
-      document.querySelectorAll('.portfolio-filter').forEach((item) => item.classList.remove('is-active'));
-      button.classList.add('is-active');
+      document.querySelectorAll('.filter-btn, .portfolio-filter').forEach((item) => item.classList.remove('active', 'is-active'));
+      button.classList.add('active');
       document.querySelectorAll('.portfolio-card').forEach((card) => {
         card.hidden = filter !== 'all' && card.dataset.category !== filter;
       });
     });
   });
+
+  const serviceCards = [...document.querySelectorAll('.service-accordion-card')];
+  const setServiceOpen = (card, shouldOpen, updateHash = false) => {
+    if (!card) return;
+    const trigger = card.querySelector('.service-accordion-trigger');
+    const panel = card.querySelector('.service-accordion-panel');
+    const icon = card.querySelector('.service-accordion-icon');
+    trigger?.setAttribute('aria-expanded', String(shouldOpen));
+    card.classList.toggle('is-open', shouldOpen);
+    if (panel) panel.hidden = !shouldOpen;
+    if (icon) icon.textContent = shouldOpen ? '−' : '+';
+    if (shouldOpen && updateHash) history.replaceState(null, '', `#${card.id}`);
+  };
+
+  serviceCards.forEach((card) => {
+    const trigger = card.querySelector('.service-accordion-trigger');
+    trigger?.addEventListener('click', () => {
+      const shouldOpen = trigger.getAttribute('aria-expanded') !== 'true';
+      serviceCards.forEach((otherCard) => setServiceOpen(otherCard, otherCard === card && shouldOpen));
+      if (shouldOpen) history.replaceState(null, '', `#${card.id}`);
+      else history.replaceState(null, '', window.location.pathname + window.location.search);
+    });
+  });
+
+  const openServiceFromHash = () => {
+    if (!window.location.hash.startsWith('#service-')) return;
+    const card = document.querySelector(window.location.hash);
+    if (!card?.classList.contains('service-accordion-card')) return;
+    serviceCards.forEach((otherCard) => setServiceOpen(otherCard, otherCard === card));
+    window.setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'center' }), 80);
+  };
+
+  openServiceFromHash();
+  window.addEventListener('hashchange', openServiceFromHash);
 
   const contactFormElement = document.querySelector('.basic-contact-form');
   if (contactFormElement) {
