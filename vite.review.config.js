@@ -12,6 +12,7 @@ export default defineConfig({
       input: {
         login: resolve(__dirname, 'review-app/index.html'),
         dashboard: resolve(__dirname, 'review-app/dashboard.html'),
+        submit: resolve(__dirname, 'review-app/submit.html'),
       },
     },
   },
