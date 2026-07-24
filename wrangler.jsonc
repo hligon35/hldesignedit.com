@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "alphazonelabs-quote",
+  "name": "azl-review-admin",
   "compatibility_date": "2026-07-23",
   "assets": {
     "directory": "./quote-dist"
