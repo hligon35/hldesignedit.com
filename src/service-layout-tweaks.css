@@ -1,16 +1,20 @@
-/* Final public-site spacing and expandable-service list adjustments. */
+/* Final public-site spacing, service-list, slideshow, and work-card adjustments. */
 
 main {
-  padding-bottom: clamp(3.5rem, 7vw, 6rem);
+  padding-bottom: clamp(1.75rem, 3.5vw, 3rem);
 }
 
 main > section:last-child,
 main > .cta-panel:last-child {
-  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  margin-bottom: clamp(1.25rem, 2.5vw, 2.25rem);
 }
 
 .footer {
-  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  margin-top: clamp(1.25rem, 2.5vw, 2.25rem);
+}
+
+.section-actions {
+  margin-top: 1.25rem;
 }
 
 .service-accordion-panel {
@@ -20,8 +24,8 @@ main > .cta-panel:last-child {
 .service-accordion-panel ul {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: clamp(3rem, 8vw, 7rem);
-  row-gap: 1rem;
+  column-gap: clamp(1.5rem, 4vw, 3.5rem);
+  row-gap: 0.5rem;
   width: min(760px, 100%);
   margin: 1.75rem auto 0;
   padding: 0;
@@ -58,21 +62,160 @@ main > .cta-panel:last-child {
   margin: 1.75rem auto 0;
 }
 
+/* Homepage selected-work split layout and fading slideshow. */
+.work-showcase-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  align-items: center;
+}
+
+.work-showcase-copy {
+  text-align: left;
+}
+
+.work-showcase-copy .eyebrow,
+.work-showcase-copy .section-subtitle,
+.work-showcase-copy .cta-btn {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.work-showcase-copy .cta-btn {
+  margin-top: 1.25rem;
+}
+
+.work-showcase-slider {
+  position: relative;
+  min-height: clamp(260px, 38vw, 460px);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background: #f5f5f4;
+  box-shadow: 0 18px 48px rgba(28, 25, 23, 0.13);
+}
+
+.work-showcase-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+}
+
+.work-showcase-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.work-showcase-slide picture,
+.work-showcase-slide img {
+  width: 100%;
+  height: 100%;
+}
+
+.work-showcase-slide img {
+  object-fit: cover;
+}
+
+.work-showcase-slide span {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #171717;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(28, 25, 23, 0.16);
+}
+
+/* Work page project-card content and buttons. */
+.page-work .portfolio-grid {
+  align-items: stretch;
+}
+
+.page-work .portfolio-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-work .portfolio-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: clamp(1.4rem, 2.5vw, 2rem);
+}
+
+.page-work .portfolio-card__body h3 {
+  margin: 0;
+  text-align: center;
+}
+
+.page-work .portfolio-card__details {
+  display: grid;
+  gap: 0.9rem;
+  width: 100%;
+}
+
+.page-work .portfolio-card__details p {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0.9rem 1rem;
+  border-radius: 1rem;
+  background: #fafaf9;
+  text-align: left;
+}
+
+.page-work .portfolio-card__details strong {
+  color: #7f0010;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.page-work .portfolio-card__button {
+  margin-top: auto;
+}
+
+@media (max-width: 820px) {
+  .work-showcase-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .work-showcase-copy {
+    text-align: center;
+  }
+
+  .work-showcase-copy .eyebrow,
+  .work-showcase-copy .section-subtitle,
+  .work-showcase-copy .cta-btn {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 @media (max-width: 640px) {
   main {
-    padding-bottom: 3rem;
+    padding-bottom: 1.5rem;
   }
 
   main > section:last-child,
   main > .cta-panel:last-child,
   .footer {
-    margin-bottom: 2rem;
-    margin-top: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
   }
 
   .service-accordion-panel ul {
     grid-template-columns: minmax(0, 1fr);
-    row-gap: 0.85rem;
+    row-gap: 0.45rem;
     width: min(340px, 100%);
   }
 
@@ -81,5 +224,9 @@ main > .cta-panel:last-child {
     grid-column: auto;
     width: 100%;
     max-width: 320px;
+  }
+
+  .work-showcase-slider {
+    min-height: 260px;
   }
 }
