@@ -5,22 +5,25 @@ const app = document.querySelector('#app');
 
 app.innerHTML = `
   <section class="auth-shell" aria-labelledby="portal-title">
-    <div class="brand-panel">
-      <img class="brand-logo" src="${logoUrl}" alt="Alpha Zone Labs" />
-      <div class="brand-copy">
-        <p class="eyebrow">Review management</p>
-        <h1 id="portal-title">Alpha Zone Labs Review Portal</h1>
-        <p>Sign in with an approved Google account to send review requests and moderate customer submissions.</p>
-      </div>
+    <div class="brand-copy">
+      <p class="eyebrow">Review management</p>
+      <h1 id="portal-title">Alpha Zone Labs Review Portal</h1>
+      <p>Sign in with an approved Google account to send review requests and moderate customer submissions.</p>
     </div>
 
-    <div class="signin-panel">
-      <div class="signin-card">
-        <p class="eyebrow">Authorized access only</p>
-        <h2>Sign in</h2>
-        <p class="signin-intro">Use a Google account that has been added to the portal allowlist.</p>
-        <div id="google-signin" class="google-signin" aria-live="polite"></div>
-        <p id="auth-status" class="auth-status" role="status"></p>
+    <div class="auth-content">
+      <div class="logo-panel" aria-hidden="true">
+        <img class="brand-logo" src="${logoUrl}" alt="" />
+      </div>
+
+      <div class="signin-panel">
+        <div class="signin-card">
+          <p class="eyebrow">Authorized access only</p>
+          <h2>Sign in</h2>
+          <p class="signin-intro">Use a Google account that has been added to the portal allowlist.</p>
+          <div id="google-signin" class="google-signin" aria-live="polite"></div>
+          <p id="auth-status" class="auth-status" role="status"></p>
+        </div>
       </div>
     </div>
   </section>
