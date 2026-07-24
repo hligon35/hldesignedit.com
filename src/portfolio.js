@@ -8,7 +8,16 @@ import { addPortfolioProducts } from './portfolio-products.js';
 
 renderPage('portfolio');
 addPortfolioProducts();
+useCurrentCedarImage();
 initializePortfolioHoverDetails();
+
+function useCurrentCedarImage() {
+  document.querySelectorAll('.page-work .portfolio-card picture').forEach((picture) => {
+    const image = picture.querySelector('img[src*="cedar&gold_lebanese.png"]');
+    if (!image) return;
+    picture.querySelectorAll('source').forEach((source) => source.remove());
+  });
+}
 
 function initializePortfolioHoverDetails() {
   document.querySelectorAll('.page-work .portfolio-card').forEach((card) => {
