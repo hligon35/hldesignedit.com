@@ -6,6 +6,7 @@ type ReviewEnv = Env & {
   SENDGRID_API_KEY?: string;
   REVIEW_FROM_EMAIL?: string;
   REVIEW_SITE_URL?: string;
+  REVIEW_LOGO_URL?: string;
   ALLOWED_ORIGINS?: string;
 };
 
@@ -80,6 +81,7 @@ async function sendReviewEmail(env: ReviewEnv, invitation: InvitationRow): Promi
   if (!env.SENDGRID_API_KEY) throw new Error("SENDGRID_API_KEY is not configured.");
   const from = env.REVIEW_FROM_EMAIL || "info@alphazonelabs.com";
   const siteUrl = (env.REVIEW_SITE_URL || "https://review.alphazonelabs.com").replace(/\/$/, "");
+  const logoUrl = env.REVIEW_LOGO_URL || "https://raw.githubusercontent.com/hligon35/hldesignedit.com/main/alpha-zone-labs-logo.png";
   const reviewUrl = `${siteUrl}/submit.html?token=${encodeURIComponent(invitation.token)}`;
   const firstName = invitation.customer_name.split(/\s+/)[0] || "there";
 
@@ -100,7 +102,46 @@ async function sendReviewEmail(env: ReviewEnv, invitation: InvitationRow): Promi
         },
         {
           type: "text/html",
-          value: `<!doctype html><html><body style="margin:0;background:#fff8e8;font-family:Arial,sans-serif;color:#171717"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:32px 16px"><tr><td align="center"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#fff;border:1px solid #e7e5e4;border-radius:20px;padding:36px"><tr><td><p style="margin:0 0 12px;color:#7f0010;font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase">Alpha Zone Labs</p><h1 style="margin:0 0 18px;font-family:Georgia,serif;font-size:30px">Tell us about your experience.</h1><p style="margin:0 0 16px;line-height:1.7">Hi ${firstName},</p><p style="margin:0 0 24px;line-height:1.7">Thank you for working with Alpha Zone Labs. Your feedback helps us improve and helps future customers understand what it is like to work with us.</p><p style="margin:0 0 28px"><a href="${reviewUrl}" style="display:inline-block;padding:14px 22px;border-radius:999px;background:#9f0712;color:#fff;text-decoration:none;font-weight:700">Leave a review</a></p><p style="margin:0;color:#57534e;font-size:13px;line-height:1.6">This private link is connected to your review invitation.</p></td></tr></table></td></tr></table></body></html>`,
+          value: `<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    @media only screen and (max-width:620px) {
+      .email-wrap { padding:20px 12px !important; }
+      .email-layout, .email-layout tbody, .email-layout tr, .email-layout td { display:block !important; width:100% !important; }
+      .logo-cell { padding:0 0 20px !important; text-align:center !important; }
+      .logo-cell img { width:180px !important; max-width:65vw !important; }
+      .content-cell { padding:28px 22px !important; }
+      .content-cell h1 { font-size:28px !important; }
+    }
+  </style>
+</head>
+<body style="margin:0;background:#fff8e8;font-family:Arial,sans-serif;color:#171717">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%;background:#fff8e8">
+    <tr>
+      <td class="email-wrap" align="center" style="padding:36px 16px">
+        <table role="presentation" class="email-layout" width="100%" cellpadding="0" cellspacing="0" style="width:100%;max-width:820px">
+          <tr>
+            <td class="logo-cell" width="220" valign="middle" align="center" style="width:220px;padding:24px 28px 24px 0">
+              <img src="${logoUrl}" width="190" alt="Alpha Zone Labs" style="display:block;width:190px;max-width:100%;height:auto;border:0">
+            </td>
+            <td class="content-cell" valign="middle" style="background:#fff;border:1px solid #e7e5e4;border-radius:20px;padding:36px">
+              <p style="margin:0 0 12px;color:#7f0010;font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase">Alpha Zone Labs</p>
+              <h1 style="margin:0 0 18px;font-family:Georgia,serif;font-size:30px;line-height:1.15">Tell us about your experience.</h1>
+              <p style="margin:0 0 16px;line-height:1.7">Hi ${firstName},</p>
+              <p style="margin:0 0 24px;line-height:1.7">Thank you for working with Alpha Zone Labs. Your feedback helps us improve and helps future customers understand what it is like to work with us.</p>
+              <p style="margin:0 0 28px"><a href="${reviewUrl}" style="display:inline-block;padding:14px 22px;border-radius:999px;background:#9f0712;color:#fff;text-decoration:none;font-weight:700">Leave a review</a></p>
+              <p style="margin:0;color:#57534e;font-size:13px;line-height:1.6">This private link is connected to your review invitation.</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`,
         },
       ],
     }),
