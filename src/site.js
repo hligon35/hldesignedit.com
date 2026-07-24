@@ -22,9 +22,9 @@ const mediaPaths = {
 
 const navigation = [
   { key: 'home', label: 'Home', href: pagePaths.home },
-  { key: 'services', label: 'Services', href: pagePaths.services },
-  { key: 'portfolio', label: 'Work', href: pagePaths.portfolio },
   { key: 'about', label: 'About', href: pagePaths.about },
+  { key: 'portfolio', label: 'Work', href: pagePaths.portfolio },
+  { key: 'services', label: 'Services', href: pagePaths.services },
 ];
 
 const contactRoutes = {
@@ -85,7 +85,7 @@ const portfolioItems = [
   { type: 'website', label: 'Service website', title: 'Black Bridge Mindset', image: './projects/bbm.png', alt: 'Black Bridge Mindset website screenshot', problem: 'The offer needed to feel clear, credible, and easy to act on.', changed: 'Sharper messaging, stronger trust cues, and a more direct booking path.', impact: 'A stronger first impression and a cleaner path to qualified inquiries.', href: 'https://blackbridgemindset.com/' },
   { type: 'website', label: 'Restaurant website', title: 'Cedar & Gold Lebanese Restaurant', image: './projects/cedar&gold_lebanese.png', alt: 'Cedar and Gold Lebanese restaurant website screenshot', webp: './projects/cedar&gold_lebanese.webp', problem: 'Customers needed menu, location, and business details quickly.', changed: 'A mobile-first layout with key information easier to find.', impact: 'A smoother browsing experience for customers deciding where to eat.', href: 'https://hligon35.github.io/cedarngoldlebanese/' },
   { type: 'website', label: 'Small business website', title: 'Luxurious Cakes Indy', image: './projects/luxurious_cakes.png', alt: 'Luxurious Cakes Indy website screenshot', webp: './projects/luxurious_cakes.webp', problem: 'The business needed stronger product presentation and a clearer inquiry flow.', changed: 'Cleaner browsing, stronger brand trust, and more direct quote support.', impact: 'A more polished online presence for custom-order customers.', href: 'https://www.luxuriouscakesindy.com/' },
-  { type: 'systems', label: 'Organization website', title: 'Life Prep Academy Foundation', image: './projects/life_prep_academy_foundation.png', alt: 'Life Prep Academy Foundation website screenshot', webp: './projects/life_prepacademyfoundation.webp', problem: 'The organization needed its mission, programs, and next steps to be easier to understand.', changed: 'Improved page hierarchy, trust signals, and program access.', impact: 'A clearer digital home for families, supporters, and partners.', href: 'https://www.lifeprepacademyfoundation.com/' },
+  { type: 'systems', label: 'Organization website', title: 'Life Prep Academy Foundation', image: './projects/life_prep_academy_foundation.png', alt: 'Life Prep Academy Foundation website screenshot', problem: 'The organization needed its mission, programs, and next steps to be easier to understand.', changed: 'Improved page hierarchy, trust signals, and program access.', impact: 'A clearer digital home for families, supporters, and partners.', href: 'https://www.lifeprepacademyfoundation.com/' },
 ];
 
 const pages = {
