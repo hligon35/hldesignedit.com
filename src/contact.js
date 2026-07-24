@@ -1,5 +1,6 @@
 import './style.css';
 import './alpha-polish.css';
+import './layout-repair.css';
 import './contact-path.css';
 import { renderPage } from './site.js';
 
