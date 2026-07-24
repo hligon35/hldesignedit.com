@@ -112,7 +112,7 @@ async function sendReviewEmail(env: ReviewEnv, invitation: InvitationRow): Promi
       .email-wrap { padding:20px 12px !important; }
       .email-layout, .email-layout tbody, .email-layout tr, .email-layout td { display:block !important; width:100% !important; }
       .logo-cell { padding:0 0 20px !important; text-align:center !important; }
-      .logo-cell img { width:180px !important; max-width:65vw !important; }
+      .logo-cell img { width:270px !important; max-width:80vw !important; }
       .content-cell { padding:28px 22px !important; }
       .content-cell h1 { font-size:28px !important; }
     }
@@ -122,19 +122,26 @@ async function sendReviewEmail(env: ReviewEnv, invitation: InvitationRow): Promi
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%;background:#fff8e8">
     <tr>
       <td class="email-wrap" align="center" style="padding:36px 16px">
-        <table role="presentation" class="email-layout" width="100%" cellpadding="0" cellspacing="0" style="width:100%;max-width:820px">
+        <table role="presentation" class="email-layout" width="100%" cellpadding="0" cellspacing="0" style="width:100%;max-width:1140px;table-layout:fixed">
           <tr>
-            <td class="logo-cell" width="220" valign="middle" align="center" style="width:220px;padding:24px 28px 24px 0">
-              <img src="${logoUrl}" width="190" alt="Alpha Zone Labs" style="display:block;width:190px;max-width:100%;height:auto;border:0">
+            <td class="logo-cell" width="285" valign="middle" align="center" style="width:285px;padding:24px 32px 24px 0">
+              <img src="${logoUrl}" width="285" alt="Alpha Zone Labs" style="display:block;width:285px;max-width:100%;height:auto;border:0">
             </td>
-            <td class="content-cell" valign="middle" style="background:#fff;border:1px solid #e7e5e4;border-radius:20px;padding:36px">
-              <p style="margin:0 0 12px;color:#7f0010;font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase">Alpha Zone Labs</p>
-              <h1 style="margin:0 0 18px;font-family:Georgia,serif;font-size:30px;line-height:1.15">Tell us about your experience.</h1>
-              <p style="margin:0 0 16px;line-height:1.7">Hi ${firstName},</p>
-              <p style="margin:0 0 24px;line-height:1.7">Thank you for working with Alpha Zone Labs. Your feedback helps us improve and helps future customers understand what it is like to work with us.</p>
-              <p style="margin:0 0 28px"><a href="${reviewUrl}" style="display:inline-block;padding:14px 22px;border-radius:999px;background:#9f0712;color:#fff;text-decoration:none;font-weight:700">Leave a review</a></p>
-              <p style="margin:0;color:#57534e;font-size:13px;line-height:1.6">This private link is connected to your review invitation.</p>
+            <td width="600" valign="middle" align="center" style="width:600px">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;margin:0 auto">
+                <tr>
+                  <td class="content-cell" valign="middle" style="background:#fff;border:1px solid #e7e5e4;border-radius:20px;padding:36px;text-align:left">
+                    <p style="margin:0 0 12px;color:#7f0010;font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase">Alpha Zone Labs</p>
+                    <h1 style="margin:0 0 18px;font-family:Georgia,serif;font-size:30px;line-height:1.15">Tell us about your experience.</h1>
+                    <p style="margin:0 0 16px;line-height:1.7">Hi ${firstName},</p>
+                    <p style="margin:0 0 24px;line-height:1.7">Thank you for working with Alpha Zone Labs. Your feedback helps us improve and helps future customers understand what it is like to work with us.</p>
+                    <p style="margin:0 0 28px"><a href="${reviewUrl}" style="display:inline-block;padding:14px 22px;border-radius:999px;background:#9f0712;color:#fff;text-decoration:none;font-weight:700">Leave a review</a></p>
+                    <p style="margin:0;color:#57534e;font-size:13px;line-height:1.6">This private link is connected to your review invitation.</p>
+                  </td>
+                </tr>
+              </table>
             </td>
+            <td width="285" aria-hidden="true" style="width:285px;font-size:0;line-height:0">&nbsp;</td>
           </tr>
         </table>
       </td>
