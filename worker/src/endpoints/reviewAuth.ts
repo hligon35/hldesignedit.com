@@ -6,7 +6,7 @@ type ReviewAuthEnv = Env & {
   AUTH_COOKIE_SECRET?: string;
 };
 
-type SessionPayload = {
+export type ReviewSession = {
   email: string;
   name?: string;
   exp: number;
@@ -45,19 +45,19 @@ async function signValue(value: string, secret: string): Promise<string> {
   return bytesToBase64Url(await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(value)));
 }
 
-async function createSession(payload: SessionPayload, secret: string): Promise<string> {
+async function createSession(payload: ReviewSession, secret: string): Promise<string> {
   const encoded = base64UrlEncode(JSON.stringify(payload));
   return `${encoded}.${await signValue(encoded, secret)}`;
 }
 
-async function readSession(token: string, secret: string): Promise<SessionPayload | null> {
+async function readSession(token: string, secret: string): Promise<ReviewSession | null> {
   const [encoded, signature] = token.split(".");
   if (!encoded || !signature) return null;
   const expected = await signValue(encoded, secret);
   if (signature !== expected) return null;
 
   try {
-    const payload = JSON.parse(base64UrlDecode(encoded)) as SessionPayload;
+    const payload = JSON.parse(base64UrlDecode(encoded)) as ReviewSession;
     if (!payload.email || !payload.exp || payload.exp <= Math.floor(Date.now() / 1000)) return null;
     return payload;
   } catch {
@@ -81,6 +81,15 @@ function allowedEmails(env: ReviewAuthEnv): Set<string> {
       .map((email) => email.trim().toLowerCase())
       .filter(Boolean),
   );
+}
+
+export async function getAuthorizedReviewSession(c: AppContext): Promise<ReviewSession | null> {
+  const env = c.env as ReviewAuthEnv;
+  if (!env.AUTH_COOKIE_SECRET) return null;
+  const token = getCookie(c.req.raw, COOKIE_NAME);
+  const session = token ? await readSession(token, env.AUTH_COOKIE_SECRET) : null;
+  if (!session || !allowedEmails(env).has(session.email.toLowerCase())) return null;
+  return session;
 }
 
 export async function ReviewAuthConfig(c: AppContext) {
@@ -137,12 +146,8 @@ export async function ReviewGoogleLogin(c: AppContext) {
 export async function ReviewAuthSession(c: AppContext) {
   const env = c.env as ReviewAuthEnv;
   if (!env.AUTH_COOKIE_SECRET) return json(c, { error: "Authentication is not configured." }, 503);
-
-  const token = getCookie(c.req.raw, COOKIE_NAME);
-  const session = token ? await readSession(token, env.AUTH_COOKIE_SECRET) : null;
+  const session = await getAuthorizedReviewSession(c);
   if (!session) return json(c, { error: "Authentication required." }, 401);
-  if (!allowedEmails(env).has(session.email.toLowerCase())) return json(c, { error: "Access is no longer authorized." }, 403);
-
   return json(c, { email: session.email, name: session.name || "" });
 }
 
