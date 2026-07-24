@@ -6,6 +6,8 @@ const brand = {
   email: 'info@alphazonelabs.com',
 };
 
+const quoteUrl = 'https://quote.alphazonelabs.com/';
+
 const pagePaths = {
   home: './index.html',
   services: './services.html',
@@ -26,10 +28,10 @@ const navigation = [
 ];
 
 const contactRoutes = {
-  website: `${pagePaths.contact}?path=website`,
-  automation: `${pagePaths.contact}?path=automation`,
-  app: `${pagePaths.contact}?path=app`,
-  strategy: `${pagePaths.contact}?path=strategy`,
+  website: `${quoteUrl}?path=website`,
+  automation: `${quoteUrl}?path=automation`,
+  app: `${quoteUrl}?path=app`,
+  strategy: `${quoteUrl}?path=strategy`,
 };
 
 const servicePillars = [
@@ -96,7 +98,7 @@ const pages = {
             <p class="eyebrow">Digital solutions for growing businesses</p>
             <h1>Build the system behind your business.</h1>
             <p class="hero-lead">Alpha Zone Labs helps businesses improve their websites, automate daily work, and build practical tools. We start by looking at what you already have, discuss what should improve, then move forward with the cleanest solution.</p>
-            <div class="hero-actions hero-actions--home"><a href="${pagePaths.contact}" class="cta-btn primary">Start a Project</a><a href="${pagePaths.services}" class="cta-btn secondary">View Services</a></div>
+            <div class="hero-actions hero-actions--home"><a href="${quoteUrl}" class="cta-btn primary">Start a Project</a><a href="${pagePaths.services}" class="cta-btn secondary">View Services</a></div>
             <div class="hero-proof hero-proof--home"><a href="${serviceRoutes.websites}">Websites</a><a href="${serviceRoutes.automation}">Automation</a><a href="${serviceRoutes['apps-tools']}">Apps & tools</a></div>
           </div>
           <aside class="hero-panel" aria-label="What Alpha Zone Labs builds">
@@ -106,10 +108,9 @@ const pages = {
         </div>
       </section>
       ${solutionPathSection()}
-      ${servicesPreviewSection()}
       ${processSection()}
       ${workPreviewSection()}
-      ${ctaPanel('Ready to clean it up?', 'Share what is not working, what you want people to do, and what would make your business easier to run.', pagePaths.contact, 'Start a Project', pagePaths.services, 'Explore Services')}
+      ${ctaPanel('Ready to clean it up?', 'Share what is not working, what you want people to do, and what would make your business easier to run.', quoteUrl, 'Start a Project', pagePaths.services, 'Explore Services')}
     `,
   },
   services: {
@@ -121,15 +122,15 @@ const pages = {
         <div class="section-header"><p class="eyebrow">Our process</p><h2>Review. Discuss. Build.</h2><p class="section-subtitle">We do not jump straight into design or tools. First, we look at the website, workflow, customer path, or internal process. Then we talk through the improvements that matter most and build the solution that fits.</p></div>
         <div class="problem-grid"><article class="problem-card"><h3>Review</h3><p>We look at your site, forms, tools, customer journey, and manual steps to find where people get stuck or where your team loses time.</p></article><article class="problem-card"><h3>Discuss</h3><p>We walk through what should change, what can wait, and which fixes will create the clearest improvement for your business.</p></article><article class="problem-card"><h3>Build</h3><p>We create the website, automation, app, or connected workflow with a focus on usability, clarity, and long-term usefulness.</p></article><article class="problem-card"><h3>Launch</h3><p>We test the experience, tighten the details, and make sure the final system is ready for real customers and real work.</p></article></div>
       </section>
-      ${ctaPanel('Not sure where to start?', 'Tell us what feels broken or outdated. We will help you figure out whether the next move is a site fix, automation, custom tool, or strategy session.', pagePaths.contact, 'Start a Project', pagePaths.portfolio, 'View Work')}
+      ${ctaPanel('Not sure where to start?', 'Tell us what feels broken or outdated. We will help you figure out whether the next move is a site fix, automation, custom tool, or strategy session.', quoteUrl, 'Start a Project', pagePaths.portfolio, 'View Work')}
     `,
   },
   portfolio: {
-    bodyClass: 'page-interior',
+    bodyClass: 'page-interior page-work',
     main: `
       ${pageHero('portfolio', 'Work', 'Built for clarity.', 'These projects focus on helping people understand the business, trust the offer, and take the next step with less friction.')}
       <section class="portfolio-section portfolio-section--interior"><div class="portfolio-filters"><button class="filter-btn active" data-filter="all">All</button><button class="filter-btn" data-filter="website">Websites</button><button class="filter-btn" data-filter="systems">Systems</button></div><div class="portfolio-grid">${portfolioCards(portfolioItems, true)}</div></section>
-      ${ctaPanel('Want a stronger customer path?', 'We can review what you have now, discuss the weak points, and build the pages or systems that move people forward.', pagePaths.contact, 'Start a Project', pagePaths.services, 'View Services')}
+      ${ctaPanel('Want a stronger customer path?', 'We can review what you have now, discuss the weak points, and build the pages or systems that move people forward.', quoteUrl, 'Start a Project', pagePaths.services, 'View Services')}
     `,
   },
   about: {
@@ -137,7 +138,7 @@ const pages = {
     main: `
       ${pageHero('about', 'About', 'Practical digital help.', 'Alpha Zone Labs builds websites, automations, and tools for businesses that need clearer customer paths and smoother internal systems.')}
       <section class="content-section"><div class="about-layout about-layout--interior"><div class="about-copy"><p class="eyebrow">How we think</p><h2>Make it easier.</h2><p>A good digital system should make something easier for the customer, the team, or both. That might mean a clearer homepage, a better quote form, faster follow-up, a registration flow, or a tool that keeps information organized.</p><p>We keep projects focused. We review what is happening now, discuss improvements in plain language, then build the pieces that solve the real problem.</p></div><div class="about-points"><article class="about-point"><h3>Clear direction</h3><p>We help decide what matters first so the project does not become bigger than it needs to be.</p></article><article class="about-point"><h3>Useful builds</h3><p>We build pages, workflows, and tools that support real business activity, not just ideas on a screen.</p></article><article class="about-point"><h3>Connected thinking</h3><p>We look at what happens before and after a customer submits a form, books, registers, or asks for help.</p></article></div></div></section>
-      ${ctaPanel('Have something that needs to work better?', 'Send the goal, the current issue, and what you want to make easier.', pagePaths.contact, 'Start a Project', pagePaths.services, 'Explore Services')}
+      ${ctaPanel('Have something that needs to work better?', 'Send the goal, the current issue, and what you want to make easier.', quoteUrl, 'Start a Project', pagePaths.services, 'Explore Services')}
     `,
   },
   contact: {
@@ -160,11 +161,11 @@ export function renderPage(pageKey) {
 }
 
 function header(activeKey) {
-  return `<header class="site-header"><nav class="nav-container" aria-label="Main navigation"><a class="header-logo__link" href="${pagePaths.home}" aria-label="Alpha Zone Labs home"><img class="header-logo__img" src="${alphaLogoUrl}" alt="${brand.name}" loading="eager" decoding="async" /></a><div id="mobile-nav" class="nav-links">${navigation.map((item) => `<a href="${item.href}" class="nav-link${item.key === activeKey ? ' is-active' : ''}"${item.key === activeKey ? ' aria-current="page"' : ''}>${item.label}</a>`).join('')}<a href="${pagePaths.contact}" class="cta-btn nav-cta">Start a Project</a></div><button class="nav-hamburger" type="button" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false"><span class="nav-hamburger__lines" aria-hidden="true"><span class="nav-hamburger__line"></span><span class="nav-hamburger__line"></span><span class="nav-hamburger__line"></span></span></button></nav></header>`;
+  return `<header class="site-header"><nav class="nav-container" aria-label="Main navigation"><a class="header-logo__link" href="${pagePaths.home}" aria-label="Alpha Zone Labs home"><img class="header-logo__img" src="${alphaLogoUrl}" alt="${brand.name}" loading="eager" decoding="async" /></a><div id="mobile-nav" class="nav-links">${navigation.map((item) => `<a href="${item.href}" class="nav-link${item.key === activeKey ? ' is-active' : ''}"${item.key === activeKey ? ' aria-current="page"' : ''}>${item.label}</a>`).join('')}<a href="${quoteUrl}" class="cta-btn nav-cta">Start a Project</a></div><button class="nav-hamburger" type="button" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false"><span class="nav-hamburger__lines" aria-hidden="true"><span class="nav-hamburger__line"></span><span class="nav-hamburger__line"></span><span class="nav-hamburger__line"></span></span></button></nav></header>`;
 }
 
 function footer() {
-  return `<footer class="footer"><div class="footer-inner"><div class="footer-cta"><div class="footer-cta__text"><h3>Build a cleaner digital system.</h3><p>Websites, automation, and tools that help people take action and help your team keep up after they do.</p></div><div class="footer-cta__actions"><a href="${pagePaths.contact}" class="cta-btn primary">Start a Project</a><a href="${pagePaths.services}" class="cta-btn secondary">View Services</a></div></div><div class="footer-grid" aria-label="Footer navigation"><div class="footer-col"><h4>Company</h4><a href="${pagePaths.home}">Home</a><a href="${pagePaths.about}">About</a><a href="${pagePaths.contact}">Start a Project</a></div><div class="footer-col"><h4>Services</h4><a href="${serviceRoutes.websites}">Websites</a><a href="${serviceRoutes.automation}">Automation</a><a href="${serviceRoutes['apps-tools']}">Apps & Tools</a><a href="${serviceRoutes.strategy}">Strategy</a></div><div class="footer-col"><h4>Work</h4><a href="${pagePaths.portfolio}">Portfolio</a><a href="${pagePaths.services}">Services</a></div><div class="footer-col"><h4>Contact</h4><a href="mailto:${brand.email}">${brand.email}</a><a href="${brand.domain}">${brand.domain.replace('https://','')}</a></div></div><div class="footer-bottom"><span>© ${new Date().getFullYear()} ${brand.name}. All rights reserved.</span><span>Websites, automation, apps, and digital systems.</span></div></div></footer>`;
+  return `<footer class="footer"><div class="footer-inner"><div class="footer-cta"><div class="footer-cta__text"><h3>Build a cleaner digital system.</h3><p>Websites, automation, and tools that help people take action and help your team keep up after they do.</p></div><div class="footer-cta__actions"><a href="${quoteUrl}" class="cta-btn primary">Start a Project</a><a href="${pagePaths.services}" class="cta-btn secondary">View Services</a></div></div><div class="footer-grid" aria-label="Footer navigation"><div class="footer-col"><h4>Company</h4><a href="${pagePaths.home}">Home</a><a href="${pagePaths.about}">About</a><a href="${quoteUrl}">Start a Project</a></div><div class="footer-col"><h4>Services</h4><a href="${serviceRoutes.websites}">Websites</a><a href="${serviceRoutes.automation}">Automation</a><a href="${serviceRoutes['apps-tools']}">Apps & Tools</a><a href="${serviceRoutes.strategy}">Strategy</a></div><div class="footer-col"><h4>Work</h4><a href="${pagePaths.portfolio}">Portfolio</a><a href="${pagePaths.services}">Services</a></div><div class="footer-col"><h4>Contact</h4><a href="mailto:${brand.email}">${brand.email}</a><a href="${brand.domain}">${brand.domain.replace('https://','')}</a></div></div><div class="footer-bottom"><span>© ${new Date().getFullYear()} ${brand.name}. All rights reserved.</span><span>Websites, automation, apps, and digital systems.</span></div></div></footer>`;
 }
 
 function pageHero(page, eyebrow, title, text) {
@@ -173,10 +174,6 @@ function pageHero(page, eyebrow, title, text) {
 
 function solutionPathSection() {
   return `<section class="solution-path-section"><div class="section-header"><p class="eyebrow">Choose the starting point</p><h2>What needs to work better?</h2><p class="section-subtitle">Start with the outcome, not the technology. We can help you decide whether the best next step is a stronger website, an automation, a custom tool, or a cleaner overall system.</p></div><div class="alpha-path-grid">${servicePillars.map(solutionPathCard).join('')}</div></section>`;
-}
-
-function servicesPreviewSection() {
-  return `<section class="services-section"><div class="section-header"><p class="eyebrow">Core services</p><h2>Focused builds. Practical outcomes.</h2><p class="section-subtitle">We improve the customer-facing pages people see and the behind-the-scenes workflows your business depends on.</p></div><div class="services-grid">${servicePillars.slice(0,3).map(serviceCard).join('')}</div><div class="section-actions"><a href="${pagePaths.services}" class="cta-btn secondary">View All Services</a></div></section>`;
 }
 
 function processSection() {
@@ -190,7 +187,8 @@ function processSection() {
 }
 
 function workPreviewSection() {
-  return `<section class="portfolio-section"><div class="section-header"><p class="eyebrow">Selected work</p><h2>Clearer experiences for real businesses.</h2><p class="section-subtitle">A few examples of websites and digital systems built to improve clarity, trust, and action.</p></div><div class="portfolio-grid">${portfolioCards(portfolioItems.slice(0,3), false)}</div><div class="section-actions"><a href="${pagePaths.portfolio}" class="cta-btn secondary">View More Work</a></div></section>`;
+  const slides = portfolioItems.slice(0, 3).map((item, index) => `<a class="work-showcase-slide${index === 0 ? ' is-active' : ''}" href="${item.href}" target="_blank" rel="noreferrer" aria-hidden="${index === 0 ? 'false' : 'true'}"><picture>${item.webp ? `<source srcset="${item.webp}" type="image/webp">` : ''}<img src="${item.image}" alt="${item.alt}" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async"></picture><span>${item.title}</span></a>`).join('');
+  return `<section class="portfolio-section work-showcase-section"><div class="work-showcase-layout"><div class="work-showcase-copy"><p class="eyebrow">Selected work</p><h2>Clearer experiences for real businesses.</h2><p class="section-subtitle">A few examples of websites and digital systems built to improve clarity, trust, and action.</p><a href="${pagePaths.portfolio}" class="cta-btn secondary">View More Work</a></div><div class="work-showcase-slider" aria-label="Selected project screenshots">${slides}</div></div></section>`;
 }
 
 function solutionPathCard(item) {
@@ -207,7 +205,7 @@ function expandableServiceCard(item) {
 }
 
 function portfolioCards(items, detailed) {
-  return items.map((item) => `<article class="portfolio-card" data-category="${item.type}"><a class="portfolio-link" href="${item.href}" target="_blank" rel="noreferrer"><picture>${item.webp ? `<source srcset="${item.webp}" type="image/webp">` : ''}<img src="${item.image}" alt="${item.alt}" loading="lazy" decoding="async"></picture><div class="portfolio-card__body"><span class="portfolio-label">${item.label}</span><h3>${item.title}</h3>${detailed ? `<p><strong>Problem:</strong> ${item.problem}</p><p><strong>What changed:</strong> ${item.changed}</p><p><strong>Impact:</strong> ${item.impact}</p>` : `<p>${item.changed}</p>`}<span class="text-link">View live project</span></div></a></article>`).join('');
+  return items.map((item) => `<article class="portfolio-card" data-category="${item.type}"><picture>${item.webp ? `<source srcset="${item.webp}" type="image/webp">` : ''}<img src="${item.image}" alt="${item.alt}" loading="lazy" decoding="async"></picture><div class="portfolio-card__body"><span class="portfolio-label">${item.label}</span><h3>${item.title}</h3>${detailed ? `<div class="portfolio-card__details"><p><strong>Problem</strong><span>${item.problem}</span></p><p><strong>What changed</strong><span>${item.changed}</span></p><p><strong>Impact</strong><span>${item.impact}</span></p></div>` : `<p>${item.changed}</p>`}<a class="cta-btn secondary portfolio-card__button" href="${item.href}" target="_blank" rel="noreferrer">View Live Project</a></div></article>`).join('');
 }
 
 function ctaPanel(title, copy, primaryHref, primaryLabel, secondaryHref, secondaryLabel) {
@@ -239,6 +237,18 @@ function initializeFeatures() {
       });
     });
   });
+
+  const slides = [...document.querySelectorAll('.work-showcase-slide')];
+  if (slides.length > 1) {
+    let activeSlide = 0;
+    window.setInterval(() => {
+      slides[activeSlide].classList.remove('is-active');
+      slides[activeSlide].setAttribute('aria-hidden', 'true');
+      activeSlide = (activeSlide + 1) % slides.length;
+      slides[activeSlide].classList.add('is-active');
+      slides[activeSlide].setAttribute('aria-hidden', 'false');
+    }, 3000);
+  }
 
   const serviceCards = [...document.querySelectorAll('.service-accordion-card')];
   const setServiceOpen = (card, shouldOpen, updateHash = false) => {
