@@ -16,8 +16,8 @@
   ],
 
   "vars": {
-    "GOOGLE_CLIENT_ID": "REPLACE_WITH_GOOGLE_OAUTH_WEB_CLIENT_ID",
-    "ALLOWED_GOOGLE_EMAILS": "hligon@alphazonelabs.com",
+    "GOOGLE_CLIENT_ID": "163925102971-unugq0eks4833r9t268tmo09ld1ooii9.apps.googleusercontent.com",
+    "ALLOWED_GOOGLE_EMAILS": "hligon@getsparqd.com, hligon35@gmail.com, hligon@alphazonelabs.com",
     "FORMS_TO_EMAIL": "info@alphazonelabs.com",
     "FORMS_DISPLAY_TO_EMAIL": "info@alphazonelabs.com",
     "FORMS_FROM_EMAIL": "noreply@alphazonelabs.com",
