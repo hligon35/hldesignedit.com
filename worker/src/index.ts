@@ -20,15 +20,16 @@ const app = new Hono<{ Bindings: Env }>();
 
 const REVIEW_ORIGIN = "https://review.alphazonelabs.com";
 const MAIN_ORIGIN = "https://alphazonelabs.com";
+const LOCAL_ORIGINS = new Set(["http://localhost:5173", "http://127.0.0.1:5173"]);
 
 function isAllowedOrigin(origin: string | null) {
-  return origin === REVIEW_ORIGIN || origin === MAIN_ORIGIN || origin === "http://localhost:5173" || origin === "http://127.0.0.1:5173";
+  return origin === REVIEW_ORIGIN || origin === MAIN_ORIGIN || LOCAL_ORIGINS.has(origin || "");
 }
 
-function addCorsHeaders(c: Parameters<Parameters<typeof app.use>[1]>[0]) {
+function addCorsHeaders(c: any) {
   const origin = c.req.header("Origin") || null;
   if (isAllowedOrigin(origin)) {
-    c.header("Access-Control-Allow-Origin", origin as string);
+    c.header("Access-Control-Allow-Origin", origin);
     c.header("Vary", "Origin");
     c.header("Access-Control-Allow-Credentials", "true");
   }
