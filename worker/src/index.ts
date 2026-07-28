@@ -18,12 +18,43 @@ import {
 
 const app = new Hono<{ Bindings: Env }>();
 
+const REVIEW_ORIGIN = "https://review.alphazonelabs.com";
+const MAIN_ORIGIN = "https://alphazonelabs.com";
+
+function isAllowedOrigin(origin: string | null) {
+  return origin === REVIEW_ORIGIN || origin === MAIN_ORIGIN || origin === "http://localhost:5173" || origin === "http://127.0.0.1:5173";
+}
+
+function addCorsHeaders(c: Parameters<Parameters<typeof app.use>[1]>[0]) {
+  const origin = c.req.header("Origin") || null;
+  if (isAllowedOrigin(origin)) {
+    c.header("Access-Control-Allow-Origin", origin as string);
+    c.header("Vary", "Origin");
+    c.header("Access-Control-Allow-Credentials", "true");
+  }
+  c.header("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  c.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+}
+
 app.use("*", async (c, next) => {
+  if (c.req.method === "OPTIONS" && c.req.path.startsWith("/api/")) {
+    addCorsHeaders(c);
+    return c.body(null, 204);
+  }
+
   await next();
+
+  if (c.req.path.startsWith("/api/")) addCorsHeaders(c);
+
   c.header("X-Content-Type-Options", "nosniff");
   c.header("X-Frame-Options", "DENY");
   c.header("Referrer-Policy", "strict-origin-when-cross-origin");
-  c.header("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self';");
+
+  const isReviewAuthApi = c.req.path.startsWith("/api/auth/") || c.req.path.startsWith("/api/reviews");
+  const csp = isReviewAuthApi
+    ? "default-src 'self'; script-src 'self' https://accounts.google.com/gsi/client https://accounts.google.com; frame-src https://accounts.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https://oauth2.googleapis.com;"
+    : "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self';";
+  c.header("Content-Security-Policy", csp);
 });
 
 app.options("/api/forms", FormsSubmit);
